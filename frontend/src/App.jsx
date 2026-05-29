@@ -105,6 +105,7 @@ import {
 } from "./pages/GalleryPages";
 import ContactPage from "./pages/ContactPage";
 import OpenPositionsPage from "./pages/OpenPositionsPage";
+import { ChatbotWidget } from "./components/AIChatbot";
 
 function RouteShell({ children }) {
   const location = useLocation();
@@ -314,6 +315,9 @@ function App() {
 
         {/* Global Footer — appears on every page */}
         <section id="footer"><Footer /></section>
+
+        {/* AI Chatbot — floating in bottom-right corner on every page */}
+        <ChatbotWidget />
       </div>
     </Router>
     </AuthProvider>

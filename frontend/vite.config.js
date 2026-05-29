@@ -9,6 +9,7 @@ export default defineConfig({
       // All /api/* and /uploads/* calls are forwarded to the FastAPI backend
       '/api': 'http://localhost:8000',
       '/uploads': 'http://localhost:8000',
+      // AI Agent API - handled by main backend (port 8000) via /api/ai/*
       // Pretty URLs for crawlers — proxied to the dynamic endpoints
       '/sitemap.xml': {
         target: 'http://localhost:8000',
