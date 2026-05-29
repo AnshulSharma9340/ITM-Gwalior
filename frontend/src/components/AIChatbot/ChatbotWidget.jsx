@@ -79,11 +79,28 @@ const ChatbotWidget = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <circle cx="12" cy="12" r="8.5" />
-                  <circle cx="9" cy="10" r="1.5" fill="currentColor" />
-                  <circle cx="15" cy="10" r="1.5" fill="currentColor" />
-                  <path d="M8 15c1.5 1.5 4.5 1.5 6 0" strokeLinecap="round" />
+                <svg className="w-7 h-7 text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Ears */}
+                  <path d="M28 42 H22 A6 6 0 0 0 16 48 V52 A6 6 0 0 0 22 58 H28" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M72 42 H78 A6 6 0 0 1 84 48 V52 A6 6 0 0 1 78 58 H72" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  
+                  {/* Head */}
+                  <rect x="28" y="32" width="44" height="32" rx="10" stroke="currentColor" strokeWidth="6" strokeLinejoin="round" />
+                  
+                  {/* Antenna */}
+                  <path d="M50 32 V20" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                  <circle cx="50" cy="14" r="6" fill="currentColor" />
+                  
+                  {/* Eyes */}
+                  <circle cx="40" cy="48" r="5" fill="currentColor" />
+                  <circle cx="60" cy="48" r="5" fill="currentColor" />
+                  
+                  {/* Body */}
+                  <path d="M38 70 Q50 92 62 70 Z" fill="currentColor" />
+                  
+                  {/* Arms */}
+                  <path d="M34 76 L26 76" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                  <path d="M66 76 L74 76" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
                 </svg>
               )}
             </motion.button>

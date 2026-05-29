@@ -159,12 +159,29 @@ const ChatPanel = ({ onClose, isOpen }) => {
             <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10 mix-blend-overlay"></div>
             <div className="flex items-center gap-3 relative z-10">
               <div className="relative">
-                <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-lg ring-2 ring-white/20">
-                  <svg className="w-5 h-5 text-[#800000]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <circle cx="12" cy="12" r="8.5" />
-                    <circle cx="9" cy="10" r="1.5" fill="currentColor" />
-                    <circle cx="15" cy="10" r="1.5" fill="currentColor" />
-                    <path d="M8 15c1.5 1.5 4.5 1.5 6 0" strokeLinecap="round" />
+                <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-lg ring-2 ring-white/20 p-1">
+                  <svg className="w-full h-full text-[#800000]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Ears */}
+                    <path d="M28 42 H22 A6 6 0 0 0 16 48 V52 A6 6 0 0 0 22 58 H28" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M72 42 H78 A6 6 0 0 1 84 48 V52 A6 6 0 0 1 78 58 H72" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                    
+                    {/* Head */}
+                    <rect x="28" y="32" width="44" height="32" rx="10" stroke="currentColor" strokeWidth="6" strokeLinejoin="round" />
+                    
+                    {/* Antenna */}
+                    <path d="M50 32 V20" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <circle cx="50" cy="14" r="6" fill="currentColor" />
+                    
+                    {/* Eyes */}
+                    <circle cx="40" cy="48" r="5" fill="currentColor" />
+                    <circle cx="60" cy="48" r="5" fill="currentColor" />
+                    
+                    {/* Body */}
+                    <path d="M38 70 Q50 92 62 70 Z" fill="currentColor" />
+                    
+                    {/* Arms */}
+                    <path d="M34 76 L26 76" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <path d="M66 76 L74 76" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
                   </svg>
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-400 border-2 border-white rounded-full shadow-sm" />
@@ -213,9 +230,29 @@ const ChatPanel = ({ onClose, isOpen }) => {
           >
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center px-6 opacity-60">
-                <div className="w-16 h-16 rounded-full bg-rose-100 dark:bg-gray-800 flex items-center justify-center mb-3">
-                  <svg className="w-8 h-8 text-[#800000] dark:text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                <div className="w-16 h-16 rounded-full bg-rose-100 dark:bg-gray-800 flex items-center justify-center mb-3 p-3">
+                  <svg className="w-full h-full text-[#800000] dark:text-rose-500" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Ears */}
+                    <path d="M28 42 H22 A6 6 0 0 0 16 48 V52 A6 6 0 0 0 22 58 H28" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M72 42 H78 A6 6 0 0 1 84 48 V52 A6 6 0 0 1 78 58 H72" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                    
+                    {/* Head */}
+                    <rect x="28" y="32" width="44" height="32" rx="10" stroke="currentColor" strokeWidth="6" strokeLinejoin="round" />
+                    
+                    {/* Antenna */}
+                    <path d="M50 32 V20" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <circle cx="50" cy="14" r="6" fill="currentColor" />
+                    
+                    {/* Eyes */}
+                    <circle cx="40" cy="48" r="5" fill="currentColor" />
+                    <circle cx="60" cy="48" r="5" fill="currentColor" />
+                    
+                    {/* Body */}
+                    <path d="M38 70 Q50 92 62 70 Z" fill="currentColor" />
+                    
+                    {/* Arms */}
+                    <path d="M34 76 L26 76" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <path d="M66 76 L74 76" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
                   </svg>
                 </div>
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No messages yet</p>
