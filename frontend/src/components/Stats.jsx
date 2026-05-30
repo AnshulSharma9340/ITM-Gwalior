@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import {
   Briefcase,
   GraduationCap,
@@ -8,6 +9,7 @@ import {
   MapPin,
   Users,
 } from "lucide-react";
+import EditableText from "./admin/EditableText";
 
 function Counter({ value }) {
   const ref = useRef(null);
@@ -46,8 +48,9 @@ const data = [
 ];
 
 export default function Stats() {
+  const pageKey = useLocation().pathname;
   return (
-    <section className="relative py-8 sm:py-20 md:py-28 bg-gradient-to-b from-[#fbf7f2] via-white to-white dark:from-[#0a0a14] dark:to-[#020617] overflow-hidden">
+    <section data-section="stats" className="relative py-8 sm:py-20 md:py-28 bg-gradient-to-b from-[#fbf7f2] via-white to-white dark:from-[#0a0a14] dark:to-[#020617] overflow-hidden">
 
       {/* Decorative blurs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[300px] rounded-full bg-gradient-to-br from-rose-200/30 to-transparent blur-2xl pointer-events-none"></div>
@@ -59,20 +62,42 @@ export default function Stats() {
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-1 bg-gradient-to-r from-[#800000] to-amber-500 rounded-full"></div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]">
+              <EditableText
+                pageKey={pageKey}
+                tkey="stats.eyebrow"
+                as="span"
+                value="Numbers don't lie"
+                className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]"
+              >
                 Numbers don&apos;t lie
-              </span>
+              </EditableText>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-[-0.03em] text-[#1a0606] dark:text-white leading-[1.05]">
-              A campus built on{" "}
-              <span className="bg-gradient-to-br from-[#800000] to-[#3e0202] bg-clip-text text-transparent">
+              <EditableText pageKey={pageKey} tkey="stats.title.line1" as="span" value="A campus built on">
+                A campus built on
+              </EditableText>{" "}
+              <EditableText
+                pageKey={pageKey}
+                tkey="stats.title.line2"
+                as="span"
+                value="outcomes."
+                className="bg-gradient-to-br from-[#800000] to-[#3e0202] bg-clip-text text-transparent"
+              >
                 outcomes.
-              </span>
+              </EditableText>
             </h2>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium leading-relaxed max-w-md">
-            From day-one placement support to a worldwide alumni network — every number reflects
-            a real student outcome, year after year.
+            <EditableText
+              pageKey={pageKey}
+              tkey="stats.intro"
+              as="span"
+              multiline
+              value="From day-one placement support to a worldwide alumni network — every number reflects a real student outcome, year after year."
+            >
+              From day-one placement support to a worldwide alumni network — every number reflects
+              a real student outcome, year after year.
+            </EditableText>
           </p>
         </div>
 

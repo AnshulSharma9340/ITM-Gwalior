@@ -1,18 +1,21 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import DepartmentSidebar from './DepartmentSidebar';
+import EditableText from './admin/EditableText';
 
-export default function PageLayout({ 
-  name, 
-  shortName, 
-  badge, 
-  subtitle, 
-  chips = [], 
-  menuItems = [], 
-  activeTab, 
-  setActiveTab, 
-  children 
+export default function PageLayout({
+  name,
+  shortName,
+  badge,
+  subtitle,
+  chips = [],
+  menuItems = [],
+  activeTab,
+  setActiveTab,
+  children
 }) {
+  const pageKey = useLocation().pathname;
   // Normalize menuItems to get tab names for mobile scroll bar
   const tabNames = menuItems
     .filter(item => typeof item === 'string' ? true : !item.children)
@@ -33,16 +36,22 @@ export default function PageLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
           {badge && (
             <span className="inline-block text-red-200 font-bold tracking-widest text-[10px] sm:text-xs uppercase mb-3 px-3 py-1 bg-white/10 rounded-full border border-white/20">
-              {badge}
+              <EditableText pageKey={pageKey} tkey="pl.badge" as="span" value={typeof badge === 'string' ? badge : ''}>
+                {badge}
+              </EditableText>
             </span>
           )}
-          
+
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter mb-3 leading-tight">
-            {name}
+            {typeof name === 'string' ? (
+              <EditableText pageKey={pageKey} tkey="pl.title" as="span" value={name}>{name}</EditableText>
+            ) : name}
           </h1>
-          
+
           <p className="text-red-100/80 max-w-xl text-xs sm:text-sm leading-relaxed font-medium">
-            {subtitle}
+            <EditableText pageKey={pageKey} tkey="pl.subtitle" as="span" multiline value={typeof subtitle === 'string' ? subtitle : ''}>
+              {subtitle}
+            </EditableText>
           </p>
 
           {/* Quick-stat chips */}

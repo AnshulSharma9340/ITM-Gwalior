@@ -1,0 +1,1681 @@
+{
+  "cse": {
+    "id": "cse",
+    "code": "CSE",
+    "name": "Computer Science & Engineering",
+    "short": "CSE",
+    "established": 1997,
+    "intake": 240,
+    "duration": "4 Years",
+    "accent": "from-rose-500 to-[#800000]",
+    "accentSolid": "#800000",
+    "icon": "💻",
+    "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&q=80",
+    "badge": "NBA Accredited · 2022-2025",
+    "subtitle": "Est. July 1997 · B.Tech & M.Tech · Cutting-Edge Research · State-of-the-Art Labs",
+    "chips": [
+      [
+        "🎓",
+        "B.Tech & M.Tech"
+      ],
+      [
+        "🔬",
+        "Research Labs"
+      ],
+      [
+        "💡",
+        "Industry Connect"
+      ],
+      [
+        "🏆",
+        "NBA Accredited"
+      ]
+    ],
+    "accreditations": [
+      "NBA Accredited (2022-2025)",
+      "AICTE Approved",
+      "RGPV Affiliated"
+    ],
+    "intro": "The CSE discipline was established in July 1997. It offers B.Tech and M.Tech programs using modern teaching approaches. The department emphasises adequate academic freedom to innovate and learn, with latest software and advanced hardware available in laboratories.",
+    "features": [
+      {
+        "icon": "📅",
+        "title": "Est. July 1997",
+        "sub": "Over 28 years of academic excellence"
+      },
+      {
+        "icon": "🎓",
+        "title": "B.Tech & M.Tech",
+        "sub": "Undergraduate and postgraduate programmes"
+      },
+      {
+        "icon": "🔬",
+        "title": "Advanced Labs",
+        "sub": "Latest software & hardware infrastructure"
+      },
+      {
+        "icon": "👨‍🏫",
+        "title": "28 Faculty Members",
+        "sub": "Experts from varied streams & specialisations"
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "👨‍🏫",
+        "title": "Expert Faculty",
+        "sub": "Well-qualified, research-active staff"
+      },
+      {
+        "icon": "🏭",
+        "title": "Industry Connect",
+        "sub": "Research with local industry partners"
+      },
+      {
+        "icon": "🧠",
+        "title": "Critical Thinking",
+        "sub": "Skills valued by reputed companies"
+      }
+    ],
+    "hod": {
+      "name": "Dr. Rishi Soni",
+      "role": "Professor & Head of Department",
+      "qualification": "Ph.D · 28+ years of experience",
+      "message": "Welcome to the Department of Computer Science & Engineering at ITM Gwalior. Established in 1997, we are committed to nurturing technologically proficient, research-competent and socially accountable engineers for the modern digital world."
+    },
+    "vision": "Nurturing students to become technologically proficient, research competent and socially accountable for the welfare of the society.",
+    "mission": [
+      "Provide high quality education through effective teaching-learning with active student participation.",
+      "Build scientifically strong engineers for industry, higher studies, research and startups.",
+      "Develop young minds with professional and behavioural ethics for societal betterment."
+    ],
+    "peos": [
+      "Graduates will exhibit team-work and leadership to meet stakeholder objectives.",
+      "Graduates will solve complex engineering problems for research / higher studies success.",
+      "Graduates will apply technical knowledge for innovation and entrepreneurship.",
+      "Graduates will practice ethical, professional standards and enhance socio-economic contributions."
+    ],
+    "psos": [
+      "Understand hardware/software principles to analyze and develop algorithms for complex problems.",
+      "Enhance programming concepts using software engineering for computational problem-solving.",
+      "Implement emerging technologies (IoT, Cloud, AI, ML) to serve society."
+    ],
+    "facultyCount": 28,
+    "facultyHighlights": [
+      {
+        "name": "Dr. Rishi Soni",
+        "role": "Professor & HoD",
+        "qual": "Ph.D · 28+ yrs"
+      },
+      {
+        "name": "Dr. Pradeep Yadav",
+        "role": "Associate Professor",
+        "qual": "Ph.D · 26+ yrs"
+      },
+      {
+        "name": "Dr. Deepak O. Gupta",
+        "role": "Associate Professor",
+        "qual": "Ph.D · 2+ yrs"
+      },
+      {
+        "name": "Dr. Monika Chauhan",
+        "role": "Associate Professor",
+        "qual": "Ph.D · 1+ yr"
+      },
+      {
+        "name": "Ms. Priusha Narwariya",
+        "role": "Assistant Professor",
+        "qual": "M.Tech · 20+ yrs"
+      },
+      {
+        "name": "Mr. Arun Agrawal",
+        "role": "Assistant Professor",
+        "qual": "M.Tech · 19+ yrs"
+      },
+      {
+        "name": "Mr. Gaurav Dubey",
+        "role": "Assistant Professor",
+        "qual": "M.Tech · 19+ yrs"
+      }
+    ],
+    "labs": [
+      {
+        "name": "Python Lab",
+        "icon": "🐍",
+        "desc": "Modern Python development environment for AI/ML and scripting."
+      },
+      {
+        "name": "Networking / Cloud Lab",
+        "icon": "☁️",
+        "desc": "Cisco-grade networking equipment and AWS-aligned cloud setups."
+      },
+      {
+        "name": "Operating System Lab",
+        "icon": "🖥️",
+        "desc": "Linux, Windows and kernel-level experimentation."
+      },
+      {
+        "name": "Data Structures & Algorithms Lab",
+        "icon": "🧮",
+        "desc": "Hands-on practice in DSA with competitive programming environment."
+      },
+      {
+        "name": "DBMS Laboratory",
+        "icon": "🗄️",
+        "desc": "Oracle, MySQL and NoSQL DB experimentation."
+      },
+      {
+        "name": "Project Lab / Computer Graphics",
+        "icon": "🎨",
+        "desc": "OpenGL, Blender and Unity-based graphics projects."
+      },
+      {
+        "name": "Software Engineering / Java Lab",
+        "icon": "☕",
+        "desc": "Full-stack Java with Spring Boot, REST APIs and microservices."
+      }
+    ],
+    "projects": [
+      {
+        "title": "Energy Efficient Buildings",
+        "note": "Smart India Hackathon 2019 (MHRD)"
+      },
+      {
+        "title": "Data Visualization Website",
+        "note": "Python + Machine Learning"
+      },
+      {
+        "title": "ADHVIK 1.0",
+        "note": "3D-printed humanoid robot with voice/gesture control"
+      },
+      {
+        "title": "Multipurpose Adjustable Cane",
+        "note": "SIH 2019 First Runner-up"
+      }
+    ],
+    "industryPartners": [
+      "SteelBird",
+      "MicroTurner",
+      "Indivar Technologies",
+      "Solitaire Infosys",
+      "Think Next"
+    ],
+    "placement": {
+      "batch": "2024",
+      "desc": "The CSE department consistently achieves high placement rates with students recruited by global tech giants and innovative startups alike.",
+      "stats": [
+        {
+          "label": "Highest Package",
+          "value": "45 LPA"
+        },
+        {
+          "label": "Average Package",
+          "value": "6.5 LPA"
+        },
+        {
+          "label": "Placement Rate",
+          "value": "92%"
+        },
+        {
+          "label": "Recruiters",
+          "value": "250+"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "🚀",
+          "title": "Top Recruiters",
+          "sub": "Google, Microsoft, Amazon, Adobe, TCS, Infosys, Wipro"
+        },
+        {
+          "icon": "💼",
+          "title": "Paid Internships",
+          "sub": "At leading tech companies during summer break"
+        },
+        {
+          "icon": "📈",
+          "title": "Vast Alumni Network",
+          "sub": "Connecting students with global opportunities"
+        }
+      ],
+      "recruiters": [
+        "Google",
+        "Microsoft",
+        "Amazon",
+        "Adobe",
+        "TCS",
+        "Infosys",
+        "Wipro",
+        "Capgemini",
+        "Cognizant",
+        "IBM"
+      ]
+    },
+    "placementBatches": [
+      "2020-24",
+      "2019-23",
+      "2018-22"
+    ],
+    "contact": {
+      "phone": "+91-7773005065",
+      "email": "admission@itmgoi.in"
+    },
+    "subPath": "/cs"
+  },
+  "it": {
+    "id": "it",
+    "code": "IT",
+    "name": "Information Technology",
+    "short": "IT",
+    "established": 1997,
+    "intake": 120,
+    "duration": "4 Years",
+    "accent": "from-amber-500 to-orange-700",
+    "accentSolid": "#B45309",
+    "icon": "🌐",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+    "badge": "NBA Accredited",
+    "subtitle": "B.Tech Programme · 565 Terminals · High-Speed Wi-Fi · Advanced Application Labs",
+    "chips": [
+      [
+        "💻",
+        "B.Tech Programme"
+      ],
+      [
+        "🌐",
+        "565 Terminals"
+      ],
+      [
+        "☁️",
+        "Cloud & AI"
+      ],
+      [
+        "🏅",
+        "NBA Accredited"
+      ]
+    ],
+    "accreditations": [
+      "NBA Accredited",
+      "AICTE Approved",
+      "RGPV Affiliated",
+      "NIRF Ranked"
+    ],
+    "intro": "The Department of Information Technology nurtures professionals with the technical expertise required to drive automation in production processes and address the demands of the modern digital world. The department operates with modern infrastructure featuring 565+ terminals with high-speed internet and Wi-Fi, supporting experiential learning across software and hardware environments.",
+    "features": [
+      {
+        "icon": "🖥️",
+        "title": "565 Terminals",
+        "sub": "Hybrid lab configurations with Wi-Fi"
+      },
+      {
+        "icon": "📦",
+        "title": "8 Advanced Labs",
+        "sub": "Application software, ML, IoT and security"
+      },
+      {
+        "icon": "📜",
+        "title": "12 Patents",
+        "sub": "Filed across IoT, ML and crop systems"
+      },
+      {
+        "icon": "👨‍🏫",
+        "title": "15 Faculty",
+        "sub": "Professor + Associate + 13 Asst. Professors"
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "🔬",
+        "title": "Cutting-edge Labs",
+        "sub": "State-of-the-art labs aligned to industry trends"
+      },
+      {
+        "icon": "📚",
+        "title": "OBE Approach",
+        "sub": "Outcome-Based Education with flipped classroom"
+      },
+      {
+        "icon": "🤝",
+        "title": "Industry Tie-ups",
+        "sub": "Guest lectures and live internships"
+      }
+    ],
+    "hod": {
+      "name": "Dr. Aditya Vidyarthi",
+      "role": "Professor & Head of Department",
+      "qualification": "Ph.D · Specialised in Machine Learning",
+      "message": "Our department serves as a hub of cutting-edge technological innovation, dedicated to advancing the frontiers of knowledge and technology with state-of-the-art laboratories aligned to industry trends and emerging technologies.",
+      "phone": "+91-9300144689",
+      "email": "hodit@itmgoi.in"
+    },
+    "vision": "Preparing technically competent problem solvers, researchers, innovators, entrepreneurs, and skilled IT professionals for the development of rural and backward areas of the country.",
+    "mission": [
+      "Offer valuable education through effective pedagogical processes.",
+      "Shape technologically strong students for industry and higher studies.",
+      "Stimulate ethical values for societal progress."
+    ],
+    "peos": [
+      "Ability to apply computing and mathematics knowledge to solve complex IT problems.",
+      "Problem-solving skills for IT-based systems across domains.",
+      "Knowledge of emerging trends and lifelong learning commitment."
+    ],
+    "psos": [
+      "Understanding software principles to analyze and design algorithms.",
+      "Professional software engineering competencies — full-stack to cloud.",
+      "Implementation of emerging technologies — NLP, quantum computing, cloud computing."
+    ],
+    "facultyCount": 15,
+    "facultyHighlights": [
+      {
+        "name": "Dr. Aditya Vidyarthi",
+        "role": "Professor & HoD",
+        "qual": "Ph.D · ML expert"
+      },
+      {
+        "name": "Dr. Jitendra Singh Kushwah",
+        "role": "Associate Professor",
+        "qual": "Ph.D"
+      },
+      {
+        "name": "13 Assistant Professors",
+        "role": "Faculty",
+        "qual": "Cyber Sec · ML · Networks · OS"
+      }
+    ],
+    "labs": [
+      {
+        "name": "Data Structures & Algorithms Lab",
+        "icon": "🧮",
+        "desc": "DSA practice with competitive coding setup."
+      },
+      {
+        "name": "Object-Oriented Programming Lab",
+        "icon": "🧩",
+        "desc": "Java, C++ and modern OOP design patterns."
+      },
+      {
+        "name": "Advanced Java & Android Lab",
+        "icon": "📱",
+        "desc": "Spring Boot, REST APIs, Android Studio."
+      },
+      {
+        "name": "Operating Systems Lab",
+        "icon": "🖥️",
+        "desc": "Linux kernel, scheduling, process management."
+      },
+      {
+        "name": "Computer Networks Lab",
+        "icon": "🌐",
+        "desc": "Cisco Packet Tracer, GNS3, network simulation."
+      },
+      {
+        "name": "Cloud Computing & IoT Lab",
+        "icon": "☁️",
+        "desc": "AWS, Azure, IoT prototyping with Raspberry Pi."
+      },
+      {
+        "name": "Machine Learning Lab",
+        "icon": "🤖",
+        "desc": "Python, TensorFlow, PyTorch, hands-on ML projects."
+      },
+      {
+        "name": "Information Security Lab",
+        "icon": "🔒",
+        "desc": "Pen-testing, cryptography, network security tools."
+      }
+    ],
+    "achievements": [
+      "12 patents published — IoT systems, ML, crop yield prediction, smart irrigation",
+      "12+ SCI/Scopus indexed journal publications",
+      "22+ Google Scholar indexed research papers",
+      "16+ conference proceedings published",
+      "20 book chapters and books published"
+    ],
+    "placement": {
+      "batch": "2024",
+      "placed": 92,
+      "desc": "Strong placement record with 92 students placed from the 2024 batch across leading IT services and product firms.",
+      "stats": [
+        {
+          "label": "Students Placed",
+          "value": "92"
+        },
+        {
+          "label": "Top Recruiters",
+          "value": "9+"
+        },
+        {
+          "label": "Avg Package",
+          "value": "5.5 LPA"
+        },
+        {
+          "label": "Industry Internships",
+          "value": "100%"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "🚀",
+          "title": "Big Tech Recruiters",
+          "sub": "Cognizant, TCS, Tech Mahindra, Capgemini"
+        },
+        {
+          "icon": "💼",
+          "title": "Mandatory Internship",
+          "sub": "45-day industry internship for every student"
+        },
+        {
+          "icon": "🎓",
+          "title": "Higher Studies",
+          "sub": "GATE and global Masters pipeline"
+        }
+      ],
+      "recruiters": [
+        "Cognizant",
+        "TCS",
+        "Tech Mahindra",
+        "Capgemini",
+        "Genpact",
+        "Accenture",
+        "Hike Education",
+        "SGS",
+        "Intellipaat"
+      ]
+    },
+    "contact": {
+      "phone": "+91-9300144689",
+      "email": "hodit@itmgoi.in"
+    },
+    "subPath": "/it"
+  },
+  "ece": {
+    "id": "ece",
+    "code": "ECE",
+    "name": "Electronics & Communication Engineering",
+    "short": "ECE",
+    "established": 1997,
+    "mtechSince": 2007,
+    "intake": 90,
+    "mtechIntake": 18,
+    "duration": "4 Years",
+    "accent": "from-indigo-500 to-violet-700",
+    "accentSolid": "#4F46E5",
+    "icon": "📡",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+    "badge": "NBA Accredited · 2009",
+    "subtitle": "B.Tech & M.Tech VLSI · 15 Specialised Labs · Government R&D Grants",
+    "chips": [
+      [
+        "📻",
+        "VLSI & Semi"
+      ],
+      [
+        "📡",
+        "Wireless"
+      ],
+      [
+        "📟",
+        "Embedded"
+      ],
+      [
+        "🏅",
+        "NBA · 2009"
+      ]
+    ],
+    "accreditations": [
+      "NBA Accredited since 2009",
+      "AICTE Approved",
+      "RGPV Affiliated",
+      "NIRF Ranked"
+    ],
+    "intro": "Electronics & Communication Engineering is a multidisciplinary field that integrates electrical engineering, computer science and information technology. The UG programme began in 1997, with M.Tech in Embedded Systems & VLSI Design launching in 2007. The department received NBA accreditation in 2009 and has secured government grants for laboratory modernisation.",
+    "features": [
+      {
+        "icon": "📅",
+        "title": "Est. 1997",
+        "sub": "M.Tech VLSI launched in 2007"
+      },
+      {
+        "icon": "🔬",
+        "title": "15 Labs",
+        "sub": "Communication, VLSI, PCB, Microwave, Makers Lab & more"
+      },
+      {
+        "icon": "🏆",
+        "title": "NBA · 2009",
+        "sub": "First NBA accreditation in 2009, renewed since"
+      },
+      {
+        "icon": "🏛️",
+        "title": "Govt Grants",
+        "sub": "Funded lab modernisation grants secured"
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "🛰️",
+        "title": "ISRO · DRDO Pipeline",
+        "sub": "Alumni at ISRO, BSNL, BHEL, NTPC, BEL"
+      },
+      {
+        "icon": "💼",
+        "title": "MNC Placements",
+        "sub": "Capgemini, L&T, TCS, Bosch, Siemens, Infosys"
+      },
+      {
+        "icon": "🎓",
+        "title": "Higher Studies",
+        "sub": "M.Tech, MS, MBA and PhD at prestigious institutions"
+      }
+    ],
+    "hod": {
+      "name": "Dr. Manoj Kumar Bandil",
+      "role": "Head of Department",
+      "qualification": "Ph.D · VLSI & Embedded Systems",
+      "message": "This is the era of Communication & Information Technology. Our alumni work at BSNL, ISRO, NTPC, BHEL, Idea, Airtel, Infosys, Wipro and Accenture, with many pursuing M.Tech, MS, MBA and PhD degrees at prestigious institutions."
+    },
+    "vision": "Prepare world-class technocrats and entrepreneurs with fresh ideas and innovations to meet the demands of industrial development and social commitment.",
+    "mission": [
+      "Help students solve real-world problems through research.",
+      "Develop entrepreneurship skills in every student.",
+      "Provide high quality education with effective teaching pedagogy."
+    ],
+    "peos": [
+      "Graduates excel in professional careers, higher education, or entrepreneurship.",
+      "Graduates possess knowledge, skills, attitude and teamwork capacity.",
+      "Graduates achieve global competence and empowerment."
+    ],
+    "psos": [
+      "Master principles in VLSI, Signal Processing, Communication, Embedded Systems and Control Engineering.",
+      "Design, implement and test projects using simulation software and hardware tools.",
+      "Demonstrate leadership and commitment to organisational, environmental and societal betterment."
+    ],
+    "facultyCount": 18,
+    "facultyHighlights": [
+      {
+        "name": "Dr. Manoj Kumar Bandil",
+        "role": "Professor & HoD",
+        "qual": "Ph.D · VLSI"
+      },
+      {
+        "name": "Mr. Narottam Dutt Upadhyay",
+        "role": "Asst. Professor",
+        "qual": "Embedded Systems"
+      },
+      {
+        "name": "Mr. Rajkumar Rajoria",
+        "role": "Asst. Professor",
+        "qual": "Innovation Coord."
+      },
+      {
+        "name": "Dr. Shushant Kumar Jain",
+        "role": "Asst. Professor",
+        "qual": "IPR Coord."
+      }
+    ],
+    "labs": [
+      {
+        "name": "Communication Lab",
+        "icon": "📡",
+        "desc": "Telecommunications systems experimentation."
+      },
+      {
+        "name": "Electronics Devices & Circuit Lab",
+        "icon": "⚡",
+        "desc": "Component-level analysis."
+      },
+      {
+        "name": "Network Lab",
+        "icon": "🌐",
+        "desc": "Data communication & networking."
+      },
+      {
+        "name": "Microprocessor & Microcontroller Lab",
+        "icon": "💾",
+        "desc": "Embedded systems fundamentals."
+      },
+      {
+        "name": "Digital Electronics Lab",
+        "icon": "🔌",
+        "desc": "Logic design & combinational circuits."
+      },
+      {
+        "name": "Software Lab",
+        "icon": "💻",
+        "desc": "Programming and simulation."
+      },
+      {
+        "name": "Microwave & Antenna Lab",
+        "icon": "📶",
+        "desc": "RF systems & antenna design."
+      },
+      {
+        "name": "Optical Fiber Communication Lab",
+        "icon": "🔦",
+        "desc": "Fiber optics experimentation."
+      },
+      {
+        "name": "Digital Signal Processing Lab",
+        "icon": "📊",
+        "desc": "Signal analysis & processing."
+      },
+      {
+        "name": "VLSI Lab",
+        "icon": "🔬",
+        "desc": "IC design with Mentor Graphics HEP1, Cadence."
+      },
+      {
+        "name": "PCB Design Lab",
+        "icon": "🛠️",
+        "desc": "Industry-standard PCB manufacturing."
+      },
+      {
+        "name": "PLC Lab",
+        "icon": "🏭",
+        "desc": "Industrial automation training."
+      },
+      {
+        "name": "Measurement & Instrumentation Lab",
+        "icon": "🎚️",
+        "desc": "Testing and diagnostics."
+      },
+      {
+        "name": "Makers Lab",
+        "icon": "🤖",
+        "desc": "Student innovation & prototyping space."
+      }
+    ],
+    "software": [
+      "MATLAB",
+      "EDA Software",
+      "Multisim",
+      "PCB Wizard",
+      "Xilinx",
+      "Mentor Graphics HEP1"
+    ],
+    "studentAchievements": [
+      {
+        "name": "Sajal Agrawal",
+        "award": "RGPV Vice Chancellor Award",
+        "batch": "2006-2010"
+      },
+      {
+        "name": "Harshali Rewadikar",
+        "award": "RGPV Vice Chancellor Award",
+        "batch": "2009-2013"
+      },
+      {
+        "name": "Ayushi Jain",
+        "award": "RGPV Vice Chancellor Award",
+        "batch": "2012-2016"
+      },
+      {
+        "name": "Priyanka Shrivastava",
+        "award": "RGPV Vice Chancellor Award",
+        "batch": "2015-2019"
+      },
+      {
+        "name": "Abhinay Gupta",
+        "award": "GATE 2013 — Rank 153"
+      },
+      {
+        "name": "Team Makers Lab",
+        "award": "Built ADHVIK 1.0 humanoid robot"
+      },
+      {
+        "name": "Team INDYAAN",
+        "award": "NASA CANSAT Competition participants"
+      }
+    ],
+    "industryPartners": [
+      "Capgemini",
+      "L&T",
+      "Bosch",
+      "Siemens",
+      "TCS",
+      "Infosys",
+      "Hexaware",
+      "Accenture",
+      "Wipro",
+      "Cognizant",
+      "Amdocs",
+      "iGate",
+      "Sadex",
+      "Bitwise"
+    ],
+    "govPartners": [
+      "DRDO",
+      "ISRO",
+      "Prasar Bharati",
+      "BHEL",
+      "NTPC",
+      "BEL",
+      "BSNL",
+      "Defence",
+      "Indian Navy"
+    ],
+    "placement": {
+      "batch": "2024",
+      "placed": 78,
+      "desc": "ECE graduates are placed across MNCs, defence, ISRO/DRDO, telecom and core electronics manufacturing.",
+      "stats": [
+        {
+          "label": "Highest Package",
+          "value": "22 LPA"
+        },
+        {
+          "label": "Average Package",
+          "value": "5.5 LPA"
+        },
+        {
+          "label": "Placement Rate",
+          "value": "88%"
+        },
+        {
+          "label": "Recruiters",
+          "value": "150+"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "🛰️",
+          "title": "PSU Recruitment",
+          "sub": "ISRO, DRDO, BHEL, BEL, BSNL, Indian Navy"
+        },
+        {
+          "icon": "💼",
+          "title": "Core MNCs",
+          "sub": "Capgemini, L&T, Bosch, Siemens, Wipro, Infosys"
+        },
+        {
+          "icon": "🎓",
+          "title": "Higher Studies",
+          "sub": "GATE qualifiers, MS abroad, PhD pipeline"
+        }
+      ],
+      "recruiters": [
+        "Capgemini",
+        "L&T",
+        "Bosch",
+        "Siemens",
+        "TCS",
+        "Infosys",
+        "Wipro",
+        "Cognizant",
+        "ISRO",
+        "DRDO"
+      ]
+    },
+    "contact": {
+      "phone": "+91-7773005065",
+      "email": "admission@itmgoi.in"
+    },
+    "subPath": "/ece"
+  },
+  "ce": {
+    "id": "ce",
+    "code": "CE",
+    "name": "Civil Engineering",
+    "short": "CE",
+    "established": 2009,
+    "intake": 30,
+    "duration": "4 Years",
+    "accent": "from-yellow-600 to-amber-800",
+    "accentSolid": "#92400E",
+    "icon": "🏗️",
+    "image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80",
+    "badge": "AICTE Approved",
+    "subtitle": "B.Tech · Structures · Geotechnics · Transportation · Environmental Engineering",
+    "chips": [
+      [
+        "🏗️",
+        "B.Tech Programme"
+      ],
+      [
+        "🔬",
+        "Modern Labs"
+      ],
+      [
+        "🌉",
+        "Field Projects"
+      ],
+      [
+        "🏅",
+        "AICTE Approved"
+      ]
+    ],
+    "accreditations": [
+      "AICTE Approved",
+      "RGPV Affiliated"
+    ],
+    "intro": "The Civil Engineering department was established in 2009 and offers a Bachelor of Engineering degree. The department emphasises technical skill development alongside communication and organisational abilities.",
+    "features": [
+      {
+        "icon": "📅",
+        "title": "Est. 2009",
+        "sub": "15+ years of academic delivery"
+      },
+      {
+        "icon": "🎓",
+        "title": "B.Tech Programme",
+        "sub": "4-year RGPV affiliated programme"
+      },
+      {
+        "icon": "🔬",
+        "title": "7 Specialised Labs",
+        "sub": "Hydraulics, Geotech, Surveying, CAD"
+      },
+      {
+        "icon": "🤝",
+        "title": "Industry MoUs",
+        "sub": "Indo-German Tool Room, Delhi College of Engg."
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "🏗️",
+        "title": "Site Visits",
+        "sub": "Rohtang Pass tunnel, Matatila Dam, Gwalior projects"
+      },
+      {
+        "icon": "📐",
+        "title": "Industry Software",
+        "sub": "AutoCAD, STAAD-Pro, SketchUp training"
+      },
+      {
+        "icon": "👨‍🎓",
+        "title": "Govt Pipeline",
+        "sub": "PWD, NHAI, CPWD recruitment focus"
+      }
+    ],
+    "hod": {
+      "name": "Dr. Ashutosh Trivedi",
+      "role": "Head of Department",
+      "qualification": "Ph.D · Structural Engineering",
+      "message": "Civil engineering is at the heart of nation building. Our curriculum is designed to produce engineers who can plan, design and construct sustainable infrastructure for the country."
+    },
+    "vision": "To establish a centre of excellence in the field of civil engineering for imparting technical education and conducting cutting-edge research.",
+    "mission": [
+      "Developing technical manpower meeting current and future industry demands.",
+      "Conducting collaborative research with industry emphasis on leadership development.",
+      "Producing ethically responsible civil engineers."
+    ],
+    "peos": [
+      "Practice civil engineering in infrastructure, public sector and entrepreneurial ventures.",
+      "Pursue advanced education across civil engineering domains.",
+      "Demonstrate leadership, teamwork and ethical conduct."
+    ],
+    "psos": [
+      "Apply codal provisions (IRC, IS, NBC, CPHEEO) for infrastructure planning and design.",
+      "Design structures using AutoCAD, STAAD-Pro and SketchUp.",
+      "Work effectively in teams within multidisciplinary project environments."
+    ],
+    "facultyCount": 12,
+    "facultyHighlights": [
+      {
+        "name": "Dr. Ashutosh Trivedi",
+        "role": "Professor & HoD",
+        "qual": "Ph.D"
+      },
+      {
+        "name": "Mr. Ankit Shrivastava",
+        "role": "Asst. Professor",
+        "qual": "Structural"
+      },
+      {
+        "name": "Ms. Vishakha Yadav",
+        "role": "Asst. Professor",
+        "qual": "Geotech"
+      }
+    ],
+    "labs": [
+      {
+        "name": "Hydraulic Engineering Lab",
+        "icon": "💧",
+        "desc": "Open channel flow, weirs, water hammer experiments."
+      },
+      {
+        "name": "Fluid Mechanics Lab",
+        "icon": "🌊",
+        "desc": "Bernoulli's apparatus, pumps, turbines."
+      },
+      {
+        "name": "Geotechnical Engineering Lab",
+        "icon": "🪨",
+        "desc": "Soil testing, triaxial, consolidation, CBR."
+      },
+      {
+        "name": "Advanced Surveying Lab",
+        "icon": "📐",
+        "desc": "Total stations, GPS, theodolites, plane tables."
+      },
+      {
+        "name": "Smart Classroom 1",
+        "icon": "🎓",
+        "desc": "Multimedia teaching with smart boards."
+      },
+      {
+        "name": "Smart Classroom 2",
+        "icon": "🎓",
+        "desc": "Interactive learning environment."
+      },
+      {
+        "name": "Computer Lab (AutoCAD, STAAD-Pro)",
+        "icon": "💻",
+        "desc": "Industry-standard design software training."
+      }
+    ],
+    "industryPartners": [
+      "Indo-German Tool Room, Indore (MoU for CAD/CAM)",
+      "Delhi College of Engineering (MoU)",
+      "PWD Madhya Pradesh",
+      "L&T Construction"
+    ],
+    "industrialVisits": [
+      "Tunnel construction at Rohtang Pass, Himachal Pradesh",
+      "Dam engineering at Matatila Dam, Shivpuri",
+      "On-site construction projects across Gwalior"
+    ],
+    "placement": {
+      "batch": "2024",
+      "placed": 22,
+      "desc": "Civil graduates find roles in infrastructure majors, PWD, NHAI, and consultancy firms.",
+      "stats": [
+        {
+          "label": "Avg Package",
+          "value": "4.5 LPA"
+        },
+        {
+          "label": "Govt Recruitment",
+          "value": "25%"
+        },
+        {
+          "label": "MoUs",
+          "value": "2"
+        },
+        {
+          "label": "Site Visits",
+          "value": "3+"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "🏛️",
+          "title": "Govt Pipeline",
+          "sub": "PWD MP, CPWD, NHAI, Indian Railways"
+        },
+        {
+          "icon": "🏗️",
+          "title": "Infrastructure Majors",
+          "sub": "L&T, Tata Projects, Shapoorji Pallonji"
+        },
+        {
+          "icon": "🎓",
+          "title": "GATE & IES",
+          "sub": "Strong record of competitive exam success"
+        }
+      ],
+      "recruiters": [
+        "L&T Construction",
+        "Tata Projects",
+        "PWD MP",
+        "NHAI",
+        "CPWD"
+      ]
+    },
+    "contact": {
+      "phone": "+91-7773005065",
+      "email": "admission@itmgoi.in"
+    },
+    "subPath": "/ce"
+  },
+  "me": {
+    "id": "me",
+    "code": "ME",
+    "name": "Mechanical Engineering",
+    "short": "ME",
+    "established": 1997,
+    "intake": 30,
+    "duration": "4 Years",
+    "accent": "from-stone-500 to-stone-800",
+    "accentSolid": "#44403C",
+    "icon": "⚙️",
+    "image": "https://images.unsplash.com/photo-1568667256549-094345857637?w=1600&q=80",
+    "badge": "AICTE Approved",
+    "subtitle": "B.Tech · Thermodynamics · Manufacturing · CAD/CAM · Robotics",
+    "chips": [
+      [
+        "⚙️",
+        "B.Tech Programme"
+      ],
+      [
+        "🔧",
+        "Design & Manufacturing"
+      ],
+      [
+        "🤖",
+        "CAD/CAM Lab"
+      ],
+      [
+        "🏅",
+        "AICTE Approved"
+      ]
+    ],
+    "accreditations": [
+      "AICTE Approved",
+      "RGPV Affiliated"
+    ],
+    "intro": "The Mechanical Engineering department applies principles of engineering, physics, materials science and mathematics for analysis, design, manufacturing and maintenance of mechanical systems. Our students work on real-world industrial problems with industry-grade workshops and software.",
+    "features": [
+      {
+        "icon": "📅",
+        "title": "Est. 1997",
+        "sub": "Over 28 years of academic excellence"
+      },
+      {
+        "icon": "🎓",
+        "title": "B.Tech Programme",
+        "sub": "4-year RGPV affiliated programme"
+      },
+      {
+        "icon": "🔬",
+        "title": "7 Workshops & Labs",
+        "sub": "Thermal, Fluid, CAD/CAM, Strength of Materials"
+      },
+      {
+        "icon": "💻",
+        "title": "Industry Software",
+        "sub": "AutoCAD, SolidWorks, CATIA, ANSYS"
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "🏭",
+        "title": "Auto OEM Pipeline",
+        "sub": "Maruti, Tata Motors, Bajaj, Hero internships"
+      },
+      {
+        "icon": "🤖",
+        "title": "Industry 4.0",
+        "sub": "Robotics, automation, additive manufacturing focus"
+      },
+      {
+        "icon": "🎓",
+        "title": "GATE Success",
+        "sub": "Strong record in GATE and PSU recruitment"
+      }
+    ],
+    "hod": {
+      "name": "Dr. Shiv Kumar Sharma",
+      "role": "Head of Department",
+      "qualification": "Ph.D · Manufacturing Engineering",
+      "message": "Mechanical engineering forms the backbone of every industry. At ITM, we equip students with skills in CAD/CAM, manufacturing, thermodynamics and modern robotics to lead in the era of Industry 4.0."
+    },
+    "vision": "To impart quality education in mechanical engineering so as to address the evolution of industry and society.",
+    "mission": [
+      "Provide education through effective pedagogy with hands-on learning.",
+      "Develop scientifically capable engineers for industry and research.",
+      "Create professionals with ethical foundations and societal commitment."
+    ],
+    "peos": [
+      "Equip students to apply skills in real-world industrial problems.",
+      "Encourage advancement to higher education and research contributions.",
+      "Prepare graduates for multicultural projects with sustainable development focus."
+    ],
+    "psos": [
+      "Apply mathematical and advanced software tools for design, analysis and fabrication.",
+      "Understand engines and machinery with analytical capabilities.",
+      "Demonstrate teamwork for projects and research pursuits."
+    ],
+    "facultyCount": 10,
+    "facultyHighlights": [
+      {
+        "name": "Dr. Shiv Kumar Sharma",
+        "role": "Professor & HoD",
+        "qual": "Ph.D · Manufacturing"
+      },
+      {
+        "name": "Mr. Amit Jain",
+        "role": "Asst. Professor",
+        "qual": "M.Tech · Robotics"
+      },
+      {
+        "name": "Mr. Mukesh Hemnani",
+        "role": "Asst. Professor",
+        "qual": "M.Tech · Startup Coord."
+      }
+    ],
+    "labs": [
+      {
+        "name": "Theory of Machines Lab",
+        "icon": "⚙️",
+        "desc": "Kinematics of mechanisms, cams, gears."
+      },
+      {
+        "name": "Dynamics of Machines Lab",
+        "icon": "🔧",
+        "desc": "Vibrations, balancing, governors."
+      },
+      {
+        "name": "Strength of Materials Lab",
+        "icon": "🛠️",
+        "desc": "Universal testing machine, tension, compression."
+      },
+      {
+        "name": "Thermodynamics & Thermal Lab",
+        "icon": "🌡️",
+        "desc": "IC engines, refrigeration, boilers."
+      },
+      {
+        "name": "CAD/CAM Lab",
+        "icon": "📐",
+        "desc": "AutoCAD, SolidWorks, CATIA, ANSYS."
+      },
+      {
+        "name": "Fluid Mechanics & Turbines Lab",
+        "icon": "💧",
+        "desc": "Pumps, hydraulic turbines, flow measurement."
+      },
+      {
+        "name": "Basic Mechanical Engineering Lab (×2)",
+        "icon": "🔩",
+        "desc": "Workshop practice — fitting, welding, turning, milling."
+      }
+    ],
+    "careerPaths": [
+      "Design Engineer",
+      "Production Manager",
+      "Robotics Specialist",
+      "Auto OEM Engineer",
+      "Refinery / Power Plant",
+      "Maintenance Engineer"
+    ],
+    "placement": {
+      "batch": "2024",
+      "placed": 24,
+      "desc": "Mechanical graduates work across auto OEMs, manufacturing, power and robotics.",
+      "stats": [
+        {
+          "label": "Avg Package",
+          "value": "4.8 LPA"
+        },
+        {
+          "label": "Core Industry %",
+          "value": "60%"
+        },
+        {
+          "label": "PSU Conversions",
+          "value": "5+"
+        },
+        {
+          "label": "GATE Qualifiers",
+          "value": "15+"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "🚗",
+          "title": "Auto OEMs",
+          "sub": "Maruti, Tata Motors, Bajaj, Hero, Mahindra"
+        },
+        {
+          "icon": "⚡",
+          "title": "Power & Energy",
+          "sub": "NTPC, BHEL, Suzlon, Adani Power"
+        },
+        {
+          "icon": "🏗️",
+          "title": "Manufacturing",
+          "sub": "L&T, Siemens, ABB, Cummins"
+        }
+      ],
+      "recruiters": [
+        "Maruti",
+        "Tata Motors",
+        "Bajaj",
+        "L&T",
+        "NTPC",
+        "BHEL",
+        "Siemens"
+      ]
+    },
+    "contact": {
+      "phone": "+91-7773005065",
+      "email": "admission@itmgoi.in"
+    },
+    "subPath": "/me"
+  },
+  "mba": {
+    "id": "mba",
+    "code": "MBA",
+    "name": "Master of Business Administration",
+    "short": "MBA",
+    "established": 2007,
+    "intake": 120,
+    "duration": "2 Years",
+    "affiliation": "Jiwaji University, Gwalior",
+    "accent": "from-amber-500 to-orange-600",
+    "accentSolid": "#D97706",
+    "icon": "📈",
+    "image": "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&q=80",
+    "badge": "NBA Accredited · 2022-2025",
+    "subtitle": "2-Year MBA · Marketing · Finance · HR · Industry-Driven Curriculum",
+    "chips": [
+      [
+        "📊",
+        "MBA Programme"
+      ],
+      [
+        "💼",
+        "Industry Internships"
+      ],
+      [
+        "🎯",
+        "150+ Recruiters"
+      ],
+      [
+        "🏆",
+        "NBA Accredited"
+      ]
+    ],
+    "accreditations": [
+      "NBA Accredited (2022-2025)",
+      "AICTE Approved",
+      "NIRF Ranked"
+    ],
+    "intro": "The Department of Management is a place where art, science and craft meet. We offer management education that incorporates industry-dependent parameters alongside curriculum development. Our experienced and young full-time faculty engage in teaching, research and outreach with the biggest library in the state at their disposal — 5000+ international/national journals and AICTE-INDEST, EBSCO databases.",
+    "specializations": [
+      "Marketing Management (MM)",
+      "Financial Management (FM)",
+      "Human Resources (HR)"
+    ],
+    "features": [
+      {
+        "icon": "📊",
+        "title": "2-Year MBA",
+        "sub": "Full-time AICTE approved programme · 120 seats"
+      },
+      {
+        "icon": "💼",
+        "title": "45-day Internship",
+        "sub": "Mandatory summer internship for every student"
+      },
+      {
+        "icon": "📚",
+        "title": "5000+ Journals",
+        "sub": "AICTE-INDEST, EBSCO databases · TATTVA-LMS"
+      },
+      {
+        "icon": "👨‍🏫",
+        "title": "15 Faculty",
+        "sub": "Mix of PhDs and industry-experienced professors"
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "🏆",
+        "title": "NBA Accredited",
+        "sub": "Accreditation valid till 2025"
+      },
+      {
+        "icon": "📈",
+        "title": "Live Consultancy",
+        "sub": "Active client projects worth ₹15L+ in 2023-24"
+      },
+      {
+        "icon": "🎓",
+        "title": "SUSPIRE Seminars",
+        "sub": "Flagship national seminar series since 2019"
+      }
+    ],
+    "hod": {
+      "name": "Dr. Preeti Singh",
+      "role": "Professor & Head of Department",
+      "qualification": "MBA, Ph.D · Marketing & Finance",
+      "joined": "06 July 2009",
+      "research": "Technology Acceptance",
+      "message": "Welcome to the Department of Management. We endeavour to flourish analytical, managerial and entrepreneurial attitudes besides inculcating ethical values for holistic development of learners to create positive societal change."
+    },
+    "vision": "The department endeavours to flourish analytical, managerial, entrepreneurial attitude besides inculcating ethical values for holistic development of learners to create positive societal change.",
+    "mission": [
+      "Cultivate a learning environment suitable for the creation and dissemination of management knowledge.",
+      "Develop innovative and dynamic business leaders who add value to society and nation-building.",
+      "Develop industry-academia interaction in a collaborative manner."
+    ],
+    "facultyCount": 15,
+    "facultyHighlights": [
+      {
+        "name": "Dr. Preeti Singh",
+        "role": "Professor & HoD",
+        "qual": "MBA, Ph.D · Marketing/Finance"
+      },
+      {
+        "name": "Dr. Ankit Gupta",
+        "role": "Associate Professor",
+        "qual": "MBA, Ph.D · Marketing/Finance"
+      },
+      {
+        "name": "Dr. Prashant Sharma",
+        "role": "Associate Professor",
+        "qual": "MBA, Ph.D · Finance/Marketing"
+      },
+      {
+        "name": "Dr. Shahid Amin",
+        "role": "Associate Professor",
+        "qual": "MBA, Ph.D · Marketing"
+      },
+      {
+        "name": "Dr. ShriKrishna Patsaria",
+        "role": "Asst. Professor",
+        "qual": "MBA, Ph.D · Finance"
+      },
+      {
+        "name": "Mr. Harshit Sinha",
+        "role": "Asst. Professor",
+        "qual": "M.Com, PhD pursuing · Marketing/Tax"
+      },
+      {
+        "name": "Dr. RaviKant Vajpai",
+        "role": "Asst. Professor",
+        "qual": "MBA, Ph.D · Marketing"
+      },
+      {
+        "name": "Dr. Alka Sanyal",
+        "role": "Asst. Professor",
+        "qual": "MBA, Ph.D · HRM"
+      },
+      {
+        "name": "Mr. Adarsh Kumar",
+        "role": "Asst. Professor",
+        "qual": "MBA, PhD pursuing · IB"
+      },
+      {
+        "name": "Ms. Priyanka Dubey",
+        "role": "Asst. Professor",
+        "qual": "MBA · Marketing"
+      },
+      {
+        "name": "Mr. Biswajit Majumdar",
+        "role": "Asst. Professor",
+        "qual": "MBA · Operations"
+      },
+      {
+        "name": "Ms. Priyanka Verma",
+        "role": "Asst. Professor",
+        "qual": "MBA, PhD pursuing · HRM"
+      },
+      {
+        "name": "Dr. Divya Sharma",
+        "role": "Asst. Professor",
+        "qual": "MBA, Ph.D · Finance"
+      },
+      {
+        "name": "Ms. Pragya Singh Sikarwar",
+        "role": "Asst. Professor",
+        "qual": "MBA, PhD pursuing · HRM/Marketing"
+      },
+      {
+        "name": "Dr. Namrata Chaturvedi",
+        "role": "Asst. Professor",
+        "qual": "M.Com, Ph.D · Finance"
+      }
+    ],
+    "infra": [
+      {
+        "name": "AC Computer Labs (30 PCs)",
+        "icon": "💻"
+      },
+      {
+        "name": "SPSS for Research",
+        "icon": "📊"
+      },
+      {
+        "name": "Multimedia Classrooms + Wi-Fi",
+        "icon": "🎓"
+      },
+      {
+        "name": "Biggest Library in State",
+        "icon": "📚"
+      },
+      {
+        "name": "AICTE-INDEST + EBSCO",
+        "icon": "🔍"
+      },
+      {
+        "name": "TATTVA-LMS",
+        "icon": "💡"
+      }
+    ],
+    "achievements": [
+      "Dr. Preeti Singh — Ace Performer (2010-11), Best Mentor (2018-19)",
+      "Dr. Ankit Gupta — Best Book Award (2018-19), Teacher Innovation Award (2019)",
+      "Books published: 'Mastering Marketing Management' (2024), 'Strategic Financial Management' (2024), 'Technology Driven Sustainability' (2024)"
+    ],
+    "consultancy": [
+      {
+        "client": "Krishna Trade Links",
+        "project": "Performance appraisal systems",
+        "value": "₹1,20,000"
+      },
+      {
+        "client": "Reflex Solutions",
+        "project": "Employee wellness initiatives",
+        "value": "₹6,11,111"
+      },
+      {
+        "client": "FMCG market analysis",
+        "project": "Market research",
+        "value": "₹1,66,600"
+      },
+      {
+        "client": "Unnat Bharat Abhiyan",
+        "project": "Government-funded",
+        "value": "₹2,25,000+"
+      },
+      {
+        "client": "Construction workers welfare",
+        "project": "Government-funded (2019-20)",
+        "value": "₹5,00,000"
+      }
+    ],
+    "events": [
+      "SUSPIRE 4th edition — 'Strategies for Sustainable Competitive Advantage' (2019)",
+      "SUSPIRE 5th edition — 'Digital and Cashless Economy in Globalized Era' (2020)",
+      "SUSPIRE 7th edition — 'Industry 5.0: Research Methodology, IPR, Entrepreneurship' (2024-25)",
+      "International Conference SGBI-2025",
+      "DiversITM 2.0 — Innovation, technology, creativity showcase",
+      "BIZDOM 2.0 — Business quiz competition",
+      "7-day Financial Literacy Workshop"
+    ],
+    "guestLectures": [
+      "Paytm",
+      "JK Tyre",
+      "Mahindra Group",
+      "HDFC",
+      "Havells",
+      "Canara Bank",
+      "Naval Group India",
+      "Mastercard"
+    ],
+    "industrialVisits": [
+      "JK Tyre",
+      "Railway Spring Factory",
+      "Cream Bell (Goa)",
+      "Steelbird Helmets",
+      "Micro Turner Industries"
+    ],
+    "placement": {
+      "batch": "2024",
+      "placed": 102,
+      "desc": "MBA graduates placed across BFSI, FMCG, IT consulting and analytics — strong corporate connect with 150+ recruiters.",
+      "stats": [
+        {
+          "label": "Highest Package",
+          "value": "12 LPA"
+        },
+        {
+          "label": "Average Package",
+          "value": "5.2 LPA"
+        },
+        {
+          "label": "Recruiters",
+          "value": "150+"
+        },
+        {
+          "label": "Placement Rate",
+          "value": "85%"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "🏦",
+          "title": "BFSI Giants",
+          "sub": "HDFC, ICICI, Axis, Canara, Bajaj FinServ"
+        },
+        {
+          "icon": "🛒",
+          "title": "FMCG & E-commerce",
+          "sub": "Paytm, Mahindra, Havells, JK Tyre, Mastercard"
+        },
+        {
+          "icon": "📈",
+          "title": "Consulting & Analytics",
+          "sub": "TCS, Cognizant, Genpact, Wipro analytics roles"
+        }
+      ],
+      "recruiters": [
+        "Paytm",
+        "HDFC",
+        "ICICI",
+        "Axis",
+        "JK Tyre",
+        "Mahindra",
+        "Havells",
+        "Canara",
+        "Mastercard"
+      ]
+    },
+    "contact": {
+      "phone": "+91-7773005065",
+      "email": "admission@itmgoi.in"
+    },
+    "subPath": "/mba"
+  },
+  "esh": {
+    "id": "esh",
+    "code": "ESH",
+    "name": "Engineering Sciences & Humanities",
+    "short": "ESH",
+    "established": 1997,
+    "intake": 0,
+    "duration": "Cross-disciplinary",
+    "accent": "from-emerald-500 to-teal-700",
+    "accentSolid": "#0F766E",
+    "icon": "🔬",
+    "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1600&q=80",
+    "badge": "Foundational Support",
+    "subtitle": "Mathematics · Physics · Chemistry · English · The foundation of every ITM engineer",
+    "chips": [
+      [
+        "📐",
+        "Mathematics"
+      ],
+      [
+        "⚛️",
+        "Physics & Chemistry"
+      ],
+      [
+        "📖",
+        "Communication"
+      ],
+      [
+        "🏛️",
+        "Foundation Dept."
+      ]
+    ],
+    "accreditations": [
+      "AICTE Approved",
+      "RGPV Affiliated"
+    ],
+    "intro": "The Engineering Sciences & Humanities department supports all engineering streams with well-equipped laboratory facilities and qualified faculty. The department's philosophy: 'Science is nothing but trained and organised common sense differing from the latter only as a veteran may differ from a raw recruit.'",
+    "features": [
+      {
+        "icon": "📐",
+        "title": "Mathematics",
+        "sub": "Calculus, Linear Algebra, Probability & Statistics"
+      },
+      {
+        "icon": "⚛️",
+        "title": "Physics & Chemistry",
+        "sub": "Lasers, optics, dielectrics, materials, synthesis"
+      },
+      {
+        "icon": "📖",
+        "title": "Communication Skills",
+        "sub": "BEC-aligned English with multimedia language lab"
+      },
+      {
+        "icon": "🔬",
+        "title": "Sponsored Research",
+        "sub": "MP Council of Science funded projects (Physics + Chem)"
+      }
+    ],
+    "hodHighlights": [
+      {
+        "icon": "🧠",
+        "title": "Critical Thinking",
+        "sub": "Strong analytical foundation for engineering"
+      },
+      {
+        "icon": "💡",
+        "title": "Research Active",
+        "sub": "Faculty publishes in national & international journals"
+      },
+      {
+        "icon": "🗣️",
+        "title": "Language Lab",
+        "sub": "BEC-aligned business English certification course"
+      }
+    ],
+    "hod": {
+      "name": "Dr. S. S. Chauhan",
+      "role": "Dean Academics & HoD Basic Science",
+      "qualification": "Ph.D",
+      "message": "Foundation matters. Our four sub-departments — Physics, Chemistry, Mathematics and Humanities — build the rigorous base every ITM engineer needs."
+    },
+    "vision": "Build a strong foundation in fundamental sciences and language for every ITM engineer.",
+    "mission": [
+      "Deliver rigorous fundamentals in Physics, Chemistry, Mathematics and Humanities.",
+      "Conduct sponsored research at the intersection of fundamental and applied sciences.",
+      "Build communication competency through modern language pedagogy."
+    ],
+    "subUnits": [
+      {
+        "name": "Physics",
+        "icon": "⚛️",
+        "desc": "Advanced lab equipment for optical phenomena, laser tech, Newton rings, diffraction. Electrical & magnetic material properties via dielectric constant, band energy gap and Hall Effect.",
+        "research": "Sponsored: 'Electronic and Transport Properties of Chemically Functionalized Nanostructures' (MP Council of Science & Technology, Bhopal)."
+      },
+      {
+        "name": "Chemistry",
+        "icon": "🧪",
+        "desc": "Analytical skill development with spectrophotometer, pH meter, viscometer, conductivity meter. Pharmaceutical compound synthesis with antibacterial/antifungal/antimalarial potential.",
+        "research": "Sponsored: 'Synthesis and Characterization of Metal Sulphides Nanoparticles' (MP Council of Science & Technology, Bhopal)."
+      },
+      {
+        "name": "Mathematics",
+        "icon": "📐",
+        "desc": "Engineering mathematics for BE and M.Tech students across all disciplines, with published research in national and international journals."
+      },
+      {
+        "name": "Humanities",
+        "icon": "📖",
+        "desc": "English language instruction with contemporary methodology. State-of-the-art language lab with multimedia systems and licensed software. Business English Certificate course aligned with European language standards."
+      }
+    ],
+    "contact": {
+      "phone": "+91-7773005065",
+      "email": "admission@itmgoi.in"
+    },
+    "subPath": "/esh"
+  }
+}

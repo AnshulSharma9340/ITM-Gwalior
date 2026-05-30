@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Users,
@@ -113,6 +114,7 @@ const ENTRY_EXAMS = [
 ];
 
 export default function PGCourses() {
+  const pageKey = useLocation().pathname;
   const [active, setActive] = useState(PG_PROGRAMS[0].id);
   const [mbaStream, setMbaStream] = useState("mm");
   const activeProgram = PG_PROGRAMS.find((p) => p.id === active);
@@ -162,7 +164,7 @@ export default function PGCourses() {
       </div>
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="pg_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-10 right-40 w-72 h-72 rounded-full border-2 border-white"></div>
         </div>
@@ -176,12 +178,15 @@ export default function PGCourses() {
               <Sparkles size={12} /> Postgraduate Programmes
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] mb-3">
-              Master the next<br />
-              <span className="text-red-200">decade.</span>
+              <EditableText pageKey={pageKey} tkey="pg.title.line1" as="span" value="Master the next">Master the next</EditableText><br />
+              <EditableText pageKey={pageKey} tkey="pg.title.line2" as="span" value="decade." className="text-red-200">decade.</EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
-              M.Tech in CS & VLSI, MCA, and our flagship MBA with three deep specialisations.
-              All routed through DTE Bhopal counselling.
+              <EditableText pageKey={pageKey} tkey="pg.intro" as="span" multiline
+                value="M.Tech in CS & VLSI, MCA, and our flagship MBA with three deep specialisations. All routed through DTE Bhopal counselling.">
+                M.Tech in CS & VLSI, MCA, and our flagship MBA with three deep specialisations.
+                All routed through DTE Bhopal counselling.
+              </EditableText>
             </p>
           </div>
 

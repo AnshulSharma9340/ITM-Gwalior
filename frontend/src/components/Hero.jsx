@@ -62,7 +62,7 @@ export default function Hero() {
 
   const meta = data?.meta;
   return (
-    <section className="relative min-h-[88vh] sm:min-h-[100vh] flex items-start sm:items-center overflow-hidden bg-[#020617] pt-[140px] sm:pt-[150px] md:pt-[180px] pb-10 sm:pb-24">
+    <section data-section="hero" className="relative min-h-[88vh] sm:min-h-[100vh] flex items-start sm:items-center overflow-hidden bg-[#020617] pt-[140px] sm:pt-[150px] md:pt-[180px] pb-10 sm:pb-24">
       <Seo
         title={meta?.title || "ITM Gwalior — Engineering & Management Institute"}
         description={meta?.description || hero.subhead}

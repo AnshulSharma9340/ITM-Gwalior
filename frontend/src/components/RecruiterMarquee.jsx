@@ -72,7 +72,7 @@ export default function RecruiterMarquee() {
   const loop = (arr) => [...arr, ...arr];
 
   return (
-    <section className="relative py-6 sm:py-16 md:py-20 bg-white dark:bg-[#020617] overflow-hidden border-y border-rose-100/60 dark:border-white/5">
+    <section data-section="recruiters" className="relative py-6 sm:py-16 md:py-20 bg-white dark:bg-[#020617] overflow-hidden border-y border-rose-100/60 dark:border-white/5">
 
       <div className="absolute inset-y-0 left-0 w-24 md:w-44 bg-gradient-to-r from-white dark:from-[#020617] to-transparent z-10 pointer-events-none"></div>
       <div className="absolute inset-y-0 right-0 w-24 md:w-44 bg-gradient-to-l from-white dark:from-[#020617] to-transparent z-10 pointer-events-none"></div>

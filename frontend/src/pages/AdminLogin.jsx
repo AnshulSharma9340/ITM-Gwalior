@@ -25,7 +25,8 @@ export default function AdminLogin() {
         return;
       }
       login(data);
-      navigate('/admin', { replace: true });
+      const dest = data.role === 'editor' ? '/editor' : '/admin';
+      navigate(dest, { replace: true });
     } catch (err) {
       setError(errorMessage(err) || 'Invalid username or password.');
     } finally {

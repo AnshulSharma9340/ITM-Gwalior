@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { Quote, Target, Compass, Heart, ChevronRight, Sparkles } from "lucide-react";
 import { DIRECTOR, VISION, MISSION, CORE_VALUES } from "../data/itm_data";
+import EditableText from "./admin/EditableText";
 
 const TABS = [
   { id: "vision", label: "Vision", icon: Compass },
@@ -10,11 +12,12 @@ const TABS = [
 ];
 
 export default function DirectorVision() {
+  const pageKey = useLocation().pathname;
   const [tab, setTab] = useState("vision");
   const [messageExpanded, setMessageExpanded] = useState(false);
 
   return (
-    <section className="relative py-6 sm:py-20 md:py-28 bg-gradient-to-b from-white via-rose-50/30 to-white dark:from-[#020617] dark:to-[#020617] overflow-hidden">
+    <section data-section="director_vision" className="relative py-6 sm:py-20 md:py-28 bg-gradient-to-b from-white via-rose-50/30 to-white dark:from-[#020617] dark:to-[#020617] overflow-hidden">
       <div className="absolute top-0 left-0 w-[25vw] h-[25vw] rounded-full bg-gradient-to-br from-rose-200/40 to-transparent blur-2xl pointer-events-none"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -23,16 +26,30 @@ export default function DirectorVision() {
         <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-14">
           <div className="inline-flex items-center gap-3 mb-2 sm:mb-3">
             <div className="w-8 h-1 bg-gradient-to-r from-[#800000] to-amber-500 rounded-full"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]">
+            <EditableText
+              pageKey={pageKey}
+              tkey="director.eyebrow"
+              as="span"
+              value="The ITM Way"
+              className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]"
+            >
               The ITM Way
-            </span>
+            </EditableText>
             <div className="w-8 h-1 bg-gradient-to-r from-amber-500 to-[#800000] rounded-full"></div>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-[-0.03em] text-[#1a0606] dark:text-white leading-[1.05]">
-            A message from our{" "}
-            <span className="bg-gradient-to-br from-[#800000] to-[#3e0202] bg-clip-text text-transparent">
+            <EditableText pageKey={pageKey} tkey="director.title.line1" as="span" value="A message from our">
+              A message from our
+            </EditableText>{" "}
+            <EditableText
+              pageKey={pageKey}
+              tkey="director.title.line2"
+              as="span"
+              value="Director."
+              className="bg-gradient-to-br from-[#800000] to-[#3e0202] bg-clip-text text-transparent"
+            >
               Director.
-            </span>
+            </EditableText>
           </h2>
         </div>
 

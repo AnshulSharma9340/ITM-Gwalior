@@ -25,6 +25,9 @@ import {
   PG_PROGRAMS,
   ADMISSION_HIGHLIGHTS,
 } from "../data/admissions_data";
+import EditableText from "../components/admin/EditableText";
+
+const PK = "/admissions"; // page key for edit overrides
 
 // ─── Programme finder wizard ─────────────────────────────────
 function recommend({ level, interest }) {
@@ -99,15 +102,24 @@ export default function Admissions() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 grid lg:grid-cols-12 gap-8 lg:gap-10 items-end">
           <div className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 text-red-200 font-bold tracking-widest text-[10px] uppercase mb-4 px-3 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
-              <Sparkles size={12} /> Admissions 2026 · Now Open
+              <Sparkles size={12} />
+              <EditableText pageKey={PK} tkey="hero.badge" as="span" value="Admissions 2026 · Now Open">
+                Admissions 2026 · Now Open
+              </EditableText>
             </span>
             <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight sm:tracking-tighter mb-3 leading-[0.95]">
-              Begin your <br />
-              <span className="text-red-200">ITM journey.</span>
+              <EditableText pageKey={PK} tkey="hero.title" as="span" value="Begin your">Begin your</EditableText> <br />
+              <EditableText pageKey={PK} tkey="hero.titleAccent" as="span" className="text-red-200" value="ITM journey.">
+                ITM journey.
+              </EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium mb-6">
-              16 programmes · 1100+ seats · NAAC A · 80%+ placement record · 29 years of legacy.
-              Pick your path or let our finder do it for you.
+              <EditableText pageKey={PK} tkey="hero.subhead" as="span" multiline value={
+                "16 programmes · 1100+ seats · NAAC A · 80%+ placement record · 29 years of legacy. Pick your path or let our finder do it for you."
+              }>
+                16 programmes · 1100+ seats · NAAC A · 80%+ placement record · 29 years of legacy.
+                Pick your path or let our finder do it for you.
+              </EditableText>
             </p>
             <div className="flex flex-wrap gap-3">
               <button
@@ -171,14 +183,20 @@ export default function Admissions() {
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-1 bg-gradient-to-r from-[#800000] to-amber-500 rounded-full"></div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]">Get Started</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]">
+                <EditableText pageKey={PK} tkey="quicklinks.eyebrow" as="span" value="Get Started">Get Started</EditableText>
+              </span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-[-0.03em] text-[#1a0606] dark:text-white leading-[1.05]">
-              Four ways to begin.
+              <EditableText pageKey={PK} tkey="quicklinks.title" as="span" value="Four ways to begin.">Four ways to begin.</EditableText>
             </h2>
           </div>
           <p className="text-sm text-gray-600 max-w-md font-medium leading-relaxed">
-            Browse programmes, follow the application guide, pay fees online — or use our smart finder.
+            <EditableText pageKey={PK} tkey="quicklinks.intro" as="span" multiline value={
+              "Browse programmes, follow the application guide, pay fees online — or use our smart finder."
+            }>
+              Browse programmes, follow the application guide, pay fees online — or use our smart finder.
+            </EditableText>
           </p>
         </div>
 
@@ -213,11 +231,15 @@ export default function Admissions() {
           <div className="text-center mb-12 max-w-2xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-3">
               <div className="w-8 h-1 bg-gradient-to-r from-[#800000] to-amber-500 rounded-full"></div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]">Admission Calendar</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#800000]">
+                <EditableText pageKey={PK} tkey="calendar.eyebrow" as="span" value="Admission Calendar">Admission Calendar</EditableText>
+              </span>
               <div className="w-8 h-1 bg-gradient-to-r from-amber-500 to-[#800000] rounded-full"></div>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-[-0.03em] text-[#1a0606] dark:text-white leading-[1.05]">
-              Five stages from April to August.
+              <EditableText pageKey={PK} tkey="calendar.title" as="span" value="Five stages from April to August.">
+                Five stages from April to August.
+              </EditableText>
             </h2>
           </div>
 
@@ -269,9 +291,15 @@ export default function Admissions() {
           <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/10 blur-2xl"></div>
           <div className="relative grid md:grid-cols-3 gap-8 items-center">
             <div className="md:col-span-2">
-              <h3 className="text-2xl md:text-4xl font-black tracking-tighter mb-3">Still have questions?</h3>
+              <h3 className="text-2xl md:text-4xl font-black tracking-tighter mb-3">
+                <EditableText pageKey={PK} tkey="contact.title" as="span" value="Still have questions?">Still have questions?</EditableText>
+              </h3>
               <p className="text-red-100/80 text-sm font-medium mb-6 max-w-lg">
-                Our admission counsellors are available Mon–Sat, 10am to 5pm. Call, email, or visit campus.
+                <EditableText pageKey={PK} tkey="contact.body" as="span" multiline value={
+                  "Our admission counsellors are available Mon–Sat, 10am to 5pm. Call, email, or visit campus."
+                }>
+                  Our admission counsellors are available Mon–Sat, 10am to 5pm. Call, email, or visit campus.
+                </EditableText>
               </p>
               <div className="flex flex-wrap gap-5 text-xs font-bold">
                 <a href="tel:+917773005065" className="flex items-center gap-2 hover:text-red-200"><Phone size={14} /> +91-7773005065</a>

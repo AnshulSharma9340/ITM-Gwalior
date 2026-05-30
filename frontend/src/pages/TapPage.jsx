@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import axios from "axios";
 import {
@@ -174,6 +175,7 @@ function BigNumber({ value, suffix = "" }) {
 }
 
 export default function TapPage() {
+  const pageKey = useLocation().pathname;
   const [activeQuote, setActiveQuote] = useState(0);
   const [events, setEvents] = useState({ upcoming: [], past: [] });
   const [activeEvent, setActiveEvent] = useState(0);
@@ -228,7 +230,7 @@ export default function TapPage() {
       </div>
 
       {/* ─────────── HERO ─────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="tap_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
           <div className="absolute -bottom-20 -left-10 w-96 h-96 rounded-full border border-white/40"></div>
@@ -241,13 +243,16 @@ export default function TapPage() {
               <Sparkles size={12} /> ITM Gwalior · TAP Cell
             </span>
             <h1 className="text-2xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] mb-4">
-              Training &amp;<br />
-              <span className="text-red-200">Placement Cell.</span>
+              <EditableText pageKey={pageKey} tkey="tap.title.line1" as="span" value="Training &">Training &amp;</EditableText><br />
+              <EditableText pageKey={pageKey} tkey="tap.title.line2" as="span" value="Placement Cell." className="text-red-200">Placement Cell.</EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium mb-8">
-              State-of-the-art TAP cell headed by experienced industry professionals.
-              We groom every student — communication, aptitude, technology, attitude —
-              and connect them to 150+ recruiting partners.
+              <EditableText pageKey={pageKey} tkey="tap.intro" as="span" multiline
+                value="State-of-the-art TAP cell headed by experienced industry professionals. We groom every student — communication, aptitude, technology, attitude — and connect them to 150+ recruiting partners.">
+                State-of-the-art TAP cell headed by experienced industry professionals.
+                We groom every student — communication, aptitude, technology, attitude —
+                and connect them to 150+ recruiting partners.
+              </EditableText>
             </p>
 
             <div className="flex flex-wrap gap-3">

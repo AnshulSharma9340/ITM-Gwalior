@@ -72,6 +72,10 @@ SCOPES: tuple[ScopeDef, ...] = (
     ScopeDef("notices", "Notices & Announcements", "Notice board"),
     ScopeDef("forms.contact", "Contact Inbox", "Contact form submissions"),
     ScopeDef("forms.grievance", "Grievance Inbox", "Grievance form submissions"),
+    # cross-cutting (Phase 1 additions)
+    ScopeDef("seo.edit", "SEO / Meta", "Per-page title, description, og:image, canonical, robots, schema"),
+    ScopeDef("analytics.view", "Analytics", "Read admin analytics summary"),
+    ScopeDef("blog.posts", "Blog Posts", "Create, edit, and publish blog posts"),
     # system
     ScopeDef("users.manage", "Manage Users", "Create/edit/disable editors (super-admin)"),
     ScopeDef("audit.read", "Audit Log", "Read audit log"),

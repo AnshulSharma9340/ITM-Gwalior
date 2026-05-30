@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
@@ -71,6 +72,7 @@ const CONF_GALLERY = [
 const BROCHURE_URL = "https://www.itmgoi.in/IQAC/Conf_FDP/Brochure_International_Conference.pdf";
 
 export default function ResearchConference() {
+  const pageKey = useLocation().pathname;
   const [tab, setTab] = useState("about");
 
   return (
@@ -104,7 +106,7 @@ export default function ResearchConference() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="conf_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
         </div>
@@ -113,10 +115,10 @@ export default function ResearchConference() {
             <Sparkles size={12} /> Flagship Event · Hybrid Mode
           </span>
           <h1 className="text-2xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] mb-4">
-            {CONF.name}
+            <EditableText pageKey={pageKey} tkey="conf.title" as="span" value={CONF.name}>{CONF.name}</EditableText>
           </h1>
           <p className="text-base md:text-xl text-rose-100/80 max-w-3xl leading-relaxed font-medium italic mb-6">
-            &ldquo;{CONF.theme}&rdquo;
+            &ldquo;<EditableText pageKey={pageKey} tkey="conf.theme" as="span" multiline value={CONF.theme}>{CONF.theme}</EditableText>&rdquo;
           </p>
           <div className="flex flex-wrap gap-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur border border-white/20 rounded-full text-xs font-black">

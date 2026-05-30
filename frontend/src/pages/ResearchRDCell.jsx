@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { usePublicRDCell } from "../hooks/usePublicResearch";
 import {
@@ -179,6 +180,7 @@ function BigNumber({ value, suffix = "" }) {
 }
 
 export default function ResearchRDCell() {
+  const pageKey = useLocation().pathname;
   const [activeArea, setActiveArea] = useState(0);
   const [pubTab, setPubTab] = useState("papers");
   const [showAllGallery, setShowAllGallery] = useState(false);
@@ -232,21 +234,25 @@ export default function ResearchRDCell() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="rdcell_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-14 md:py-20 grid lg:grid-cols-12 gap-10 items-end">
           <div className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 text-red-200 font-bold tracking-widest text-[10px] uppercase mb-4 px-3 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
-              <Microscope size={12} /> Research &amp; Development Cell
+              <Microscope size={12} /> <EditableText pageKey={pageKey} tkey="rdcell.eyebrow" as="span" value="Research & Development Cell">Research &amp; Development Cell</EditableText>
             </span>
             <h1 className="text-2xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] mb-4">
-              A research culture <br /><span className="text-red-200">that ships.</span>
+              <EditableText pageKey={pageKey} tkey="rdcell.title.line1" as="span" value="A research culture">A research culture</EditableText> <br />
+              <EditableText pageKey={pageKey} tkey="rdcell.title.line2" as="span" value="that ships." className="text-red-200">that ships.</EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
-              At ITM Gwalior, we&apos;re committed to fostering a robust research ecosystem that drives
-              innovation, intellectual growth, and societal impact.
+              <EditableText pageKey={pageKey} tkey="rdcell.intro" as="span" multiline
+                value="At ITM Gwalior, we're committed to fostering a robust research ecosystem that drives innovation, intellectual growth, and societal impact.">
+                At ITM Gwalior, we&apos;re committed to fostering a robust research ecosystem that drives
+                innovation, intellectual growth, and societal impact.
+              </EditableText>
             </p>
           </div>
           <div className="lg:col-span-5 grid grid-cols-2 gap-3">

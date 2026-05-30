@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     TZ: str = "Asia/Kolkata"
 
     # CORS
-    FRONTEND_ORIGINS: str = "http://localhost:5173"
+    FRONTEND_ORIGINS: str = "http://localhost:5173,http://localhost:3000,https://itm-gwalior.vercel.app,https://anshul32467-itmgwalior.hf.space"
 
     # Database
     DATABASE_URL: str = "sqlite:///./itmgoi.db"

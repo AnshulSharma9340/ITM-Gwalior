@@ -1,14 +1,7 @@
-.env
+venv/
 .venv/
 __pycache__/
 *.pyc
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-htmlcov/
-.coverage
-uploads/
+.env
+chroma_data/
 *.db
-*.sqlite
-*.sqlite3
-logs/

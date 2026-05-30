@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import {
   Search,
@@ -155,6 +156,7 @@ function BigNumber({ value }) {
 }
 
 export default function UGCourses() {
+  const pageKey = useLocation().pathname;
   const [group, setGroup] = useState("all");
   const [activeId, setActiveId] = useState(UG_PROGRAMS[0].id);
   const [compare, setCompare] = useState([]);
@@ -240,7 +242,7 @@ export default function UGCourses() {
       </div>
 
       {/* ─────────── HERO ─────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="ug_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
           <div className="absolute -bottom-20 -left-10 w-80 h-80 rounded-full border border-white/40"></div>
@@ -255,12 +257,15 @@ export default function UGCourses() {
                 <Sparkles size={12} /> 12 Undergraduate Programmes · Spotlight Explorer
               </span>
               <h1 className="text-3xl sm:text-4xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] mb-3">
-                Spotlight on<br />
-                <span className="text-red-200">your future.</span>
+                <EditableText pageKey={pageKey} tkey="ug.title.line1" as="span" value="Spotlight on">Spotlight on</EditableText><br />
+                <EditableText pageKey={pageKey} tkey="ug.title.line2" as="span" value="your future." className="text-red-200">your future.</EditableText>
               </h1>
               <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
-                Pick a stream below, explore each programme in full focus.
-                Bookmark favourites, compare side-by-side, then apply.
+                <EditableText pageKey={pageKey} tkey="ug.intro" as="span" multiline
+                  value="Pick a stream below, explore each programme in full focus. Bookmark favourites, compare side-by-side, then apply.">
+                  Pick a stream below, explore each programme in full focus.
+                  Bookmark favourites, compare side-by-side, then apply.
+                </EditableText>
               </p>
             </div>
             <div className="lg:col-span-4 flex flex-wrap gap-4">

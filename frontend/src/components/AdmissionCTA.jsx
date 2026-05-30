@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, CreditCard, Phone, Calendar, Sparkles } from "lucide-react";
+import EditableText from "./admin/EditableText";
 
 export default function AdmissionCTA() {
+  const pageKey = useLocation().pathname;
   return (
-    <section className="relative py-6 sm:py-16 md:py-20 bg-white dark:bg-[#020617] overflow-hidden">
+    <section data-section="admission_cta" className="relative py-6 sm:py-16 md:py-20 bg-white dark:bg-[#020617] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         <motion.div
@@ -29,20 +31,25 @@ export default function AdmissionCTA() {
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white/10 backdrop-blur border border-white/20 mb-3 sm:mb-5">
                 <Calendar size={12} className="text-amber-300" />
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-300">
+                <EditableText pageKey={pageKey} tkey="admcta.eyebrow" as="span" value="Admissions 2026 — Limited Seats"
+                  className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-300">
                   Admissions 2026 — Limited Seats
-                </span>
+                </EditableText>
               </div>
 
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-[-0.03em] leading-[1.05] mb-3 sm:mb-4">
-                Your seat at ITM is one <br className="hidden md:block" />
-                <span className="bg-gradient-to-r from-amber-300 to-rose-200 bg-clip-text text-transparent">
+                <EditableText pageKey={pageKey} tkey="admcta.title.line1" as="span" value="Your seat at ITM is one">Your seat at ITM is one</EditableText> <br className="hidden md:block" />
+                <EditableText pageKey={pageKey} tkey="admcta.title.line2" as="span" value="application away."
+                  className="bg-gradient-to-r from-amber-300 to-rose-200 bg-clip-text text-transparent">
                   application away.
-                </span>
+                </EditableText>
               </h2>
               <p className="text-xs sm:text-sm md:text-base text-rose-100/80 font-medium leading-relaxed max-w-xl mb-5 sm:mb-8">
-                15+ programmes across B.Tech, M.Tech, MCA, MBA, BCA and BBA. NAAC A, NBA accredited,
-                with 90%+ placement track. Apply in under 20 minutes.
+                <EditableText pageKey={pageKey} tkey="admcta.body" as="span" multiline
+                  value="15+ programmes across B.Tech, M.Tech, MCA, MBA, BCA and BBA. NAAC A, NBA accredited, with 90%+ placement track. Apply in under 20 minutes.">
+                  15+ programmes across B.Tech, M.Tech, MCA, MBA, BCA and BBA. NAAC A, NBA accredited,
+                  with 90%+ placement track. Apply in under 20 minutes.
+                </EditableText>
               </p>
 
               <div className="flex flex-wrap gap-2 sm:gap-3">

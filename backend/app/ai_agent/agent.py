@@ -110,6 +110,7 @@ _KB_CATEGORY_MAP = [
     (["calendar", "academic calendar", "holiday", "vacation"], "academic_calendar"),
     (["innovation", "startup", "incubation", "ideapad", "innovation cell"], "innovation_cell"),
     (["research", "publication", "paper", "journal", "phd", "doctorate"], "general"),
+    (["director", "principal", "dean", "official", "management", "leadership"], "general"),
 ]
 
 # General chitchat patterns — no tool needed
@@ -204,16 +205,19 @@ class AIAssistant:
     def __init__(self):
         self._llm = None
         self._initialized = False
+        self._use_http_fallback = False
         # Simple per-session conversation history (last N messages)
         self._history: dict[str, list[dict]] = defaultdict(list)
         self._max_history = 10
 
     async def initialize(self) -> None:
-        """Initialize the LLM."""
-        try:
-            if not settings.NVIDIA_API_KEY:
-                raise ValueError("NVIDIA_API_KEY is not set")
+        """Initialize the LLM with fallback chain: ChatNVIDIA -> httpx direct."""
+        if not settings.NVIDIA_API_KEY:
+            logger.error("NVIDIA_API_KEY is not set — AI Assistant cannot start")
+            return
 
+        # ── Attempt 1: langchain ChatNVIDIA ──────────────────────────────
+        try:
             from langchain_nvidia_ai_endpoints import ChatNVIDIA
 
             self._llm = ChatNVIDIA(
@@ -221,18 +225,71 @@ class AIAssistant:
                 api_key=settings.NVIDIA_API_KEY,
                 base_url=settings.NVIDIA_BASE_URL,
                 temperature=settings.NVIDIA_TEMPERATURE,
-                max_tokens=settings.NVIDIA_MAX_TOKENS,
+                max_completion_tokens=settings.NVIDIA_MAX_TOKENS,
                 top_p=settings.NVIDIA_TOP_P,
             )
 
             self._initialized = True
+            self._use_http_fallback = False
             logger.info(
-                "AI Assistant initialized (RAG mode)",
+                "AI Assistant initialized (ChatNVIDIA)",
+                extra={"model": settings.NVIDIA_MODEL},
+            )
+            return
+        except TypeError:
+            # Older langchain-nvidia-ai-endpoints may not accept max_completion_tokens
+            logger.warning("ChatNVIDIA rejected max_completion_tokens, retrying with max_tokens")
+            try:
+                from langchain_nvidia_ai_endpoints import ChatNVIDIA
+
+                self._llm = ChatNVIDIA(
+                    model=settings.NVIDIA_MODEL,
+                    api_key=settings.NVIDIA_API_KEY,
+                    base_url=settings.NVIDIA_BASE_URL,
+                    temperature=settings.NVIDIA_TEMPERATURE,
+                    top_p=settings.NVIDIA_TOP_P,
+                )
+
+                self._initialized = True
+                self._use_http_fallback = False
+                logger.info(
+                    "AI Assistant initialized (ChatNVIDIA, compat mode)",
+                    extra={"model": settings.NVIDIA_MODEL},
+                )
+                return
+            except Exception as e2:
+                logger.warning("ChatNVIDIA init retry failed", exc_info=e2)
+        except Exception as e:
+            logger.warning("ChatNVIDIA init failed, will try httpx fallback", exc_info=e)
+
+        # ── Attempt 2: direct httpx call to NVIDIA API ───────────────────
+        try:
+            import httpx
+
+            test_url = f"{settings.NVIDIA_BASE_URL}/chat/completions"
+            async with httpx.AsyncClient(timeout=15) as client:
+                resp = await client.post(
+                    test_url,
+                    headers={
+                        "Authorization": f"Bearer {settings.NVIDIA_API_KEY}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": settings.NVIDIA_MODEL,
+                        "messages": [{"role": "user", "content": "ping"}],
+                        "max_tokens": 5,
+                    },
+                )
+                resp.raise_for_status()
+
+            self._use_http_fallback = True
+            self._initialized = True
+            logger.info(
+                "AI Assistant initialized (httpx fallback)",
                 extra={"model": settings.NVIDIA_MODEL},
             )
         except Exception as e:
-            logger.error("Failed to initialize AI Assistant", exc_info=e)
-            raise
+            logger.error("All LLM init attempts failed", exc_info=e)
 
     def _is_rate_limit_error(self, exc: BaseException) -> bool:
         """Check if an exception is a 429 rate limit error."""
@@ -319,24 +376,38 @@ class AIAssistant:
 
         return ("", "no_data")
 
-    async def _generate_answer(self, question: str, context: str, session_id: str) -> str:
-        """Call the LLM to generate a natural language answer."""
+    def _build_user_prompt(self, question: str, context: str, session_id: str) -> str:
+        """Build the user prompt with context and history."""
         if context:
             user_prompt = ANSWER_PROMPT_TEMPLATE.format(question=question, context=context)
         else:
             user_prompt = CHAT_PROMPT_TEMPLATE.format(question=question)
 
-        # Add conversation history for context
         history_ctx = self._get_history_context(session_id)
         if history_ctx:
             user_prompt = f"Recent conversation:\n{history_ctx}\n\n{user_prompt}"
 
-        messages = [
-            SystemMessage(content=SYSTEM_PROMPT),
-            HumanMessage(content=user_prompt),
-        ]
-        
-        logger.info(f"\n{'='*50}\n[4] WHAT THE MODEL SEES (Final Prompt):\nSystem:\n{SYSTEM_PROMPT}\n\nUser:\n{user_prompt}\n{'='*50}")
+        return user_prompt
+
+    async def _http_generate(self, user_prompt: str) -> str:
+        """Call NVIDIA API directly via httpx (non-streaming)."""
+        import httpx as _httpx
+
+        url = f"{settings.NVIDIA_BASE_URL}/chat/completions"
+        payload = {
+            "model": settings.NVIDIA_MODEL,
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            "temperature": settings.NVIDIA_TEMPERATURE,
+            "max_tokens": settings.NVIDIA_MAX_TOKENS,
+            "top_p": settings.NVIDIA_TOP_P,
+        }
+        headers = {
+            "Authorization": f"Bearer {settings.NVIDIA_API_KEY}",
+            "Content-Type": "application/json",
+        }
 
         async for attempt in AsyncRetrying(
             retry=retry_if_exception(self._is_rate_limit_error),
@@ -345,34 +416,95 @@ class AIAssistant:
             reraise=True,
         ):
             with attempt:
-                response = await self._llm.ainvoke(messages)
-
-        if response and response.content and response.content.strip():
-            answer = response.content.strip()
-            # Fix bullet points lacking newlines
-            answer = re.sub(r'(?<!\n)\s*([*-])\s', '\n\\1 ', answer)
-            return answer
+                async with _httpx.AsyncClient(timeout=60) as client:
+                    resp = await client.post(url, json=payload, headers=headers)
+                    resp.raise_for_status()
+                    data = resp.json()
+                    return data["choices"][0]["message"]["content"].strip()
 
         return ""
 
+    async def _http_stream(self, user_prompt: str) -> AsyncGenerator[str, None]:
+        """Stream NVIDIA API response via httpx SSE."""
+        import httpx as _httpx
+        import json as _json
+
+        url = f"{settings.NVIDIA_BASE_URL}/chat/completions"
+        payload = {
+            "model": settings.NVIDIA_MODEL,
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+            "temperature": settings.NVIDIA_TEMPERATURE,
+            "max_tokens": settings.NVIDIA_MAX_TOKENS,
+            "top_p": settings.NVIDIA_TOP_P,
+            "stream": True,
+        }
+        headers = {
+            "Authorization": f"Bearer {settings.NVIDIA_API_KEY}",
+            "Content-Type": "application/json",
+        }
+
+        async with _httpx.AsyncClient(timeout=120) as client:
+            async with client.stream("POST", url, json=payload, headers=headers) as resp:
+                resp.raise_for_status()
+                async for line in resp.aiter_lines():
+                    if not line.startswith("data: "):
+                        continue
+                    chunk_str = line[6:]
+                    if chunk_str.strip() == "[DONE]":
+                        break
+                    try:
+                        chunk = _json.loads(chunk_str)
+                        delta = chunk["choices"][0].get("delta", {})
+                        if delta.get("content"):
+                            yield delta["content"]
+                    except (KeyError, IndexError, _json.JSONDecodeError):
+                        continue
+
+    async def _generate_answer(self, question: str, context: str, session_id: str) -> str:
+        """Call the LLM to generate a natural language answer."""
+        user_prompt = self._build_user_prompt(question, context, session_id)
+        
+        logger.info(f"\n{'='*50}\n[4] WHAT THE MODEL SEES (Final Prompt):\nSystem:\n{SYSTEM_PROMPT}\n\nUser:\n{user_prompt}\n{'='*50}")
+
+        if self._use_http_fallback:
+            answer = await self._http_generate(user_prompt)
+        else:
+            messages = [
+                SystemMessage(content=SYSTEM_PROMPT),
+                HumanMessage(content=user_prompt),
+            ]
+            async for attempt in AsyncRetrying(
+                retry=retry_if_exception(self._is_rate_limit_error),
+                stop=stop_after_attempt(4),
+                wait=wait_exponential(multiplier=2, min=2, max=30),
+                reraise=True,
+            ):
+                with attempt:
+                    response = await self._llm.ainvoke(messages)
+            answer = response.content.strip() if response and response.content else ""
+
+        if answer:
+            answer = re.sub(r'(?<!\n)\s*([*-])\s', '\n\\1 ', answer)
+        return answer
+
     async def _stream_answer(self, question: str, context: str, session_id: str) -> AsyncGenerator[str, None]:
         """Stream the LLM answer token by token."""
-        if context:
-            user_prompt = ANSWER_PROMPT_TEMPLATE.format(question=question, context=context)
-        else:
-            user_prompt = CHAT_PROMPT_TEMPLATE.format(question=question)
+        user_prompt = self._build_user_prompt(question, context, session_id)
+        
+        logger.info(f"\n{'='*50}\n[4] WHAT THE MODEL SEES (Final Prompt):\nSystem:\n{SYSTEM_PROMPT}\n\nUser:\n{user_prompt}\n{'='*50}")
 
-        # Add conversation history for context
-        history_ctx = self._get_history_context(session_id)
-        if history_ctx:
-            user_prompt = f"Recent conversation:\n{history_ctx}\n\n{user_prompt}"
+        if self._use_http_fallback:
+            async for token in self._http_stream(user_prompt):
+                yield token
+            return
 
         messages = [
             SystemMessage(content=SYSTEM_PROMPT),
             HumanMessage(content=user_prompt),
         ]
-        
-        logger.info(f"\n{'='*50}\n[4] WHAT THE MODEL SEES (Final Prompt):\nSystem:\n{SYSTEM_PROMPT}\n\nUser:\n{user_prompt}\n{'='*50}")
 
         async for attempt in AsyncRetrying(
             retry=retry_if_exception(self._is_rate_limit_error),
@@ -401,7 +533,7 @@ class AIAssistant:
                 "processing_time_ms": int((time.time() - start_time) * 1000),
             }
 
-        if not self._llm:
+        if not self._initialized:
             return {"answer": "AI Assistant is not initialized. Please try again later.", "sources": []}
 
         try:
@@ -420,7 +552,7 @@ class AIAssistant:
                 answer = (
                     "I wasn't able to find specific information for your query. "
                     "Please try rephrasing your question, or contact ITM administration "
-                    "at [itmgoi.in](https://www.itmgoi.in) for accurate details."
+                    "at [itm-gwalior.vercel.app](https://itm-gwalior.vercel.app) for accurate details."
                 )
 
             processing_time = int((time.time() - start_time) * 1000)
@@ -456,7 +588,7 @@ class AIAssistant:
             yield answer
             return
 
-        if not self._llm:
+        if not self._initialized:
             yield "AI Assistant is not initialized. Please try again later."
             return
 

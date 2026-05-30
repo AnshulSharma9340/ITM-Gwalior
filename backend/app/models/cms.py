@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime
+
 from sqlalchemy import (
     JSON,
     Boolean,
@@ -34,6 +36,12 @@ class Page(Base, TimestampMixin, MetadataMixin):
     status: Mapped[str] = mapped_column(String(16), default="published", nullable=False)
     scope_key: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
 
+    # Phase 2: draft of MetadataMixin/page fields (title/hero/intro/meta_*/og_image/canonical/robots/schema_jsonld)
+    seo_payload_draft: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    meta_draft: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    # bumped on publish; public read can use ?v= for cache busting
+    cache_version: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+
     sections: Mapped[list["PageSection"]] = relationship(
         "PageSection",
         back_populates="page",
@@ -60,6 +68,13 @@ class PageSection(Base, TimestampMixin):
     position: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     payload: Mapped[dict | list | None] = mapped_column(JSON, nullable=True)
+
+    # Phase 2: visual-editor drafts
+    payload_draft: Mapped[dict | list | None] = mapped_column(JSON, nullable=True)
+    draft_updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    draft_updated_by_user_id: Mapped[int | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL"), nullable=True
+    )
 
     page: Mapped["Page"] = relationship("Page", back_populates="sections")
 

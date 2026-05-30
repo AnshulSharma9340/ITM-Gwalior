@@ -27,7 +27,9 @@ from app.core.logging import RequestContextMiddleware, configure_logging, log
 from app.core.ratelimit import limiter
 from app.ai_agent.database import vector_db
 from app.ai_agent.agent import assistant
+from app.routers import admin_pages as admin_pages_router
 from app.routers import admissions as admissions_router
+from app.routers import analytics as analytics_router
 from app.routers import audit as audit_router
 from app.routers import auth as auth_router
 from app.routers import clubs as clubs_router
@@ -35,10 +37,13 @@ from app.routers import compliance as compliance_router
 from app.routers import departments as departments_router
 from app.routers import health as health_router
 from app.routers import media as media_router
+from app.routers import page_overrides as page_overrides_router
 from app.routers import pages as pages_router
 from app.routers import placements as placements_router
+from app.routers import posts as posts_router
 from app.routers import public as public_router
 from app.routers import research as research_router
+from app.routers import scope_presets as scope_presets_router
 from app.routers import seo as seo_router
 from app.routers import settings as settings_router
 from app.routers import users as users_router
@@ -66,43 +71,51 @@ async def lifespan(_: FastAPI):
         doc_count = vector_db.count_documents()
         log.info("ai_agent.chroma_ready", documents=doc_count)
 
-        # Auto-index website content in the background if the vector store is empty
-        if doc_count == 0:
-            log.info("ai_agent.auto_index_starting", message="Vector store empty, starting background website indexing...")
+        async def _auto_index():
+            """Background task: index static data + crawl websites into ChromaDB."""
+            try:
+                from app.ai_agent.config import settings as ai_settings
+                from app.ai_agent.scrapers.static_data import StaticDataScraper
 
-            async def _auto_index():
-                """Background task: crawl websites and index into ChromaDB."""
+                total_chunks = 0
+
+                # Step 1: ALWAYS index static ITM data (director, officials, etc.)
+                # This runs on every startup regardless of existing doc count.
                 try:
-                    from app.ai_agent.config import settings as ai_settings
-                    from app.ai_agent.scrapers.website_crawler import WebsiteCrawler
-
-                    urls_to_index = [
-                        ai_settings.PRIMARY_WEBSITE,
-                        ai_settings.LEGACY_WEBSITE,
-                    ]
-
-                    total_chunks = 0
-                    for url in urls_to_index:
-                        if not url:
-                            continue
-                        try:
-                            crawler = WebsiteCrawler(url, max_pages=30)
-                            results = await crawler.scrape()
-                            await crawler.close()
-                            if results:
-                                texts = [r["text"] for r in results]
-                                metadatas = [r["metadata"] for r in results]
-                                added = await asyncio.to_thread(
-                                    vector_db.add_documents, texts, metadatas
-                                )
-                                total_chunks += added
-                                log.info("ai_agent.indexed_website", url=url, chunks=added)
-                        except Exception as e:
-                            log.warning("ai_agent.index_failed", url=url, error=str(e))
-
-                    log.info("ai_agent.auto_index_complete", total_chunks=total_chunks)
+                    static = StaticDataScraper()
+                    static_results = await static.scrape()
+                    if static_results:
+                        texts = [r["text"] for r in static_results]
+                        metadatas = [r["metadata"] for r in static_results]
+                        added = await asyncio.to_thread(
+                            vector_db.add_documents, texts, metadatas, None, "static_data"
+                        )
+                        total_chunks += added
+                        log.info("ai_agent.indexed_static_data", chunks=added)
                 except Exception as e:
-                    log.warning("ai_agent.auto_index_error", error=str(e))
+                    log.warning("ai_agent.static_data_index_failed", error=str(e))
+
+                # Step 2: Fetch data from backend API endpoints
+                # The frontend is a React SPA (empty shells), so we call the
+                # backend API directly to get actual structured data.
+                try:
+                    from app.ai_agent.scrapers.api_data import APIDataScraper
+                    api_scraper = APIDataScraper()
+                    api_results = await api_scraper.scrape()
+                    if api_results:
+                        texts = [r["text"] for r in api_results]
+                        metadatas = [r["metadata"] for r in api_results]
+                        added = await asyncio.to_thread(
+                            vector_db.add_documents, texts, metadatas, None, "api_data"
+                        )
+                        total_chunks += added
+                        log.info("ai_agent.indexed_api_data", chunks=added)
+                except Exception as e:
+                    log.warning("ai_agent.api_data_index_failed", error=str(e))
+
+                log.info("ai_agent.auto_index_complete", total_chunks=total_chunks)
+            except Exception as e:
+                log.warning("ai_agent.auto_index_error", error=str(e))
 
             # Fire-and-forget background task — server starts immediately
             task = asyncio.create_task(_auto_index())
@@ -185,6 +198,13 @@ app.include_router(health_router.router, prefix=settings.API_PREFIX)
 app.include_router(auth_router.router, prefix=settings.API_PREFIX)
 app.include_router(users_router.router, prefix=settings.API_PREFIX)
 app.include_router(users_router.catalog_router, prefix=settings.API_PREFIX)
+app.include_router(scope_presets_router.router, prefix=settings.API_PREFIX)
+app.include_router(admin_pages_router.router, prefix=settings.API_PREFIX)
+app.include_router(page_overrides_router.public_router, prefix=settings.API_PREFIX)
+app.include_router(page_overrides_router.admin_router, prefix=settings.API_PREFIX)
+app.include_router(posts_router.public_router, prefix=settings.API_PREFIX)
+app.include_router(posts_router.admin_router, prefix=settings.API_PREFIX)
+app.include_router(analytics_router.router, prefix=settings.API_PREFIX)
 app.include_router(audit_router.router, prefix=settings.API_PREFIX)
 app.include_router(media_router.router, prefix=settings.API_PREFIX)
 app.include_router(settings_router.router, prefix=settings.API_PREFIX)

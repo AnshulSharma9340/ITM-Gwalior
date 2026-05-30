@@ -28,14 +28,20 @@ from app.models import (
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_JS = ROOT / "frontend" / "src" / "data" / "departments_v2.js"
+# Pre-rendered JSON shipped with the backend so HF Space (no Node, no frontend
+# tree) can seed departments at startup.
+DATA_JSON = Path(__file__).resolve().parents[1] / "data" / "departments.json"
 
 
 def load_js_export() -> dict:
-    """Use Node to evaluate the ES module and dump JSON. Falls back to a simple
-    regex-based parser if Node isn't installed."""
+    # Production path: read the pre-rendered JSON committed alongside the backend.
+    if DATA_JSON.exists():
+        return json.loads(DATA_JSON.read_text(encoding="utf-8"))
+    # Dev fallback: evaluate the live JS module via Node so local edits
+    # to departments_v2.js flow through without a manual export step.
     if not DATA_JS.exists():
         raise FileNotFoundError(DATA_JS)
-    file_url = DATA_JS.resolve().as_uri()  # e.g. file:///D:/.../departments_v2.js
+    file_url = DATA_JS.resolve().as_uri()
     try:
         out = subprocess.check_output(
             [

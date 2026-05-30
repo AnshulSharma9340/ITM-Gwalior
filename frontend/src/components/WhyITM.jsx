@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import {
   ShieldCheck,
   Microscope,
@@ -8,6 +9,7 @@ import {
   HandCoins,
   Cpu,
 } from "lucide-react";
+import EditableText from "./admin/EditableText";
 
 // Real recognitions/awards scraped from itmgoi.in
 const REASONS = [
@@ -50,8 +52,9 @@ const REASONS = [
 ];
 
 export default function WhyITM() {
+  const pageKey = useLocation().pathname;
   return (
-    <section className="relative py-8 sm:py-20 md:py-28 bg-[#1a0606] text-white overflow-hidden">
+    <section data-section="why_itm" className="relative py-8 sm:py-20 md:py-28 bg-[#1a0606] text-white overflow-hidden">
 
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
@@ -71,19 +74,41 @@ export default function WhyITM() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur border border-white/20 mb-5">
-            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-300">
+            <EditableText
+              pageKey={pageKey}
+              tkey="whyitm.eyebrow"
+              as="span"
+              value="Why ITM Gwalior"
+              className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-300"
+            >
               Why ITM Gwalior
-            </span>
+            </EditableText>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-[-0.03em] leading-[1.05] mb-4">
-            Six reasons students <br className="hidden md:block" />
-            <span className="bg-gradient-to-r from-amber-300 to-rose-300 bg-clip-text text-transparent">
+            <EditableText pageKey={pageKey} tkey="whyitm.title.line1" as="span" value="Six reasons students">
+              Six reasons students
+            </EditableText>{" "}
+            <br className="hidden md:block" />
+            <EditableText
+              pageKey={pageKey}
+              tkey="whyitm.title.line2"
+              as="span"
+              value="pick us over the rest."
+              className="bg-gradient-to-r from-amber-300 to-rose-300 bg-clip-text text-transparent"
+            >
               pick us over the rest.
-            </span>
+            </EditableText>
           </h2>
           <p className="text-sm md:text-base text-rose-100/70 font-medium leading-relaxed">
-            Quality you can measure. Outcomes you can verify. A campus that takes your future as
-            seriously as you do.
+            <EditableText
+              pageKey={pageKey}
+              tkey="whyitm.intro"
+              as="span"
+              multiline
+              value="Quality you can measure. Outcomes you can verify. A campus that takes your future as seriously as you do."
+            >
+              Quality you can measure. Outcomes you can verify. A campus that takes your future as seriously as you do.
+            </EditableText>
           </p>
         </div>
 
@@ -112,11 +137,26 @@ export default function WhyITM() {
                 </div>
 
                 <h3 className="text-sm sm:text-lg md:text-xl font-black tracking-tight leading-tight mb-2 sm:mb-3">
-                  {r.title}
+                  <EditableText
+                    pageKey={pageKey}
+                    tkey={`whyitm.reasons.${i}.title`}
+                    as="span"
+                    value={r.title}
+                  >
+                    {r.title}
+                  </EditableText>
                 </h3>
 
                 <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-medium">
-                  {r.body}
+                  <EditableText
+                    pageKey={pageKey}
+                    tkey={`whyitm.reasons.${i}.body`}
+                    as="span"
+                    multiline
+                    value={r.body}
+                  >
+                    {r.body}
+                  </EditableText>
                 </p>
 
                 {/* Pinned to the bottom of every card so the "Learn more" baseline is identical across all six. */}

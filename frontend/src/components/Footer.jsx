@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "./admin/EditableText";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
 import { Mail, Phone, MapPin, ArrowUpRight, Send } from "lucide-react";
 
@@ -94,8 +95,9 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const pageKey = useLocation().pathname;
   return (
-    <footer className="relative bg-[#0a0a14] text-white pt-8 sm:pt-20 pb-6 sm:pb-10 px-4 sm:px-6 overflow-hidden">
+    <footer data-section="footer" className="relative bg-[#0a0a14] text-white pt-8 sm:pt-20 pb-6 sm:pb-10 px-4 sm:px-6 overflow-hidden">
 
       {/* Decorative glows */}
       <div className="absolute top-0 right-0 w-[30vw] h-[30vw] bg-[#800000]/20 blur-2xl rounded-full pointer-events-none"></div>
@@ -111,8 +113,12 @@ export default function Footer() {
         {/* Newsletter strip */}
         <div className="mb-6 sm:mb-16 rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur p-4 sm:p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-6">
           <div>
-            <h3 className="text-base sm:text-xl md:text-2xl font-black tracking-tight mb-0.5 sm:mb-1">Stay in the loop.</h3>
-            <p className="hidden sm:block text-sm text-gray-400 font-medium">Admission dates, deadlines and ITM stories — straight to your inbox.</p>
+            <h3 className="text-base sm:text-xl md:text-2xl font-black tracking-tight mb-0.5 sm:mb-1">
+              <EditableText pageKey={pageKey} tkey="footer.news.title" as="span" value="Stay in the loop.">Stay in the loop.</EditableText>
+            </h3>
+            <p className="hidden sm:block text-sm text-gray-400 font-medium">
+              <EditableText pageKey={pageKey} tkey="footer.news.sub" as="span" value="Admission dates, deadlines and ITM stories — straight to your inbox.">Admission dates, deadlines and ITM stories — straight to your inbox.</EditableText>
+            </p>
           </div>
           <form
             onSubmit={(e) => e.preventDefault()}

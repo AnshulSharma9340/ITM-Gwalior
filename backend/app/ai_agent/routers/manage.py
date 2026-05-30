@@ -166,40 +166,42 @@ async def upload_pdf(file: UploadFile):
 
 @router.post("/index-all")
 async def index_all_websites():
-    """Index content from all ITM websites."""
-    from app.ai_agent.scrapers.website_crawler import WebsiteCrawler
-    from app.ai_agent.scrapers.admissions import AdmissionsScraper
-    from app.ai_agent.scrapers.placements import PlacementsScraper
-
-    urls = [
-        settings.PRIMARY_WEBSITE,
-        settings.LEGACY_WEBSITE,
-        settings.UNIVERSITY_WEBSITE,
-    ]
+    """Index content from static data + backend API endpoints."""
+    from app.ai_agent.scrapers.static_data import StaticDataScraper
+    from app.ai_agent.scrapers.api_data import APIDataScraper
 
     total_chunks = 0
     errors = []
 
-    for url in urls:
-        try:
-            crawler = WebsiteCrawler(url, max_pages=50)
-            results = await crawler.scrape()
-            await crawler.close()
+    # Step 1: Index static ITM data
+    try:
+        static = StaticDataScraper()
+        results = await static.scrape()
+        if results:
+            texts = [r["text"] for r in results]
+            metadatas = [r["metadata"] for r in results]
+            total_chunks += await asyncio.to_thread(
+                vector_db.add_documents, texts, metadatas, None, "static_data"
+            )
+    except Exception as e:
+        errors.append(f"static_data: {str(e)}")
 
-            if results:
-                texts = [r["text"] for r in results]
-                metadatas = [r["metadata"] for r in results]
-                total_chunks += await asyncio.to_thread(
-                    vector_db.add_documents, texts, metadatas, None, url
-                )
-
-        except Exception as e:
-            errors.append(f"{url}: {str(e)}")
+    # Step 2: Fetch from backend API endpoints
+    try:
+        api = APIDataScraper()
+        results = await api.scrape()
+        if results:
+            texts = [r["text"] for r in results]
+            metadatas = [r["metadata"] for r in results]
+            total_chunks += await asyncio.to_thread(
+                vector_db.add_documents, texts, metadatas, None, "api_data"
+            )
+    except Exception as e:
+        errors.append(f"api_data: {str(e)}")
 
     return {
         "status": "success" if not errors else "partial",
         "total_chunks_indexed": total_chunks,
-        "websites_indexed": len([u for u in urls if u]),
         "errors": errors,
     }
 

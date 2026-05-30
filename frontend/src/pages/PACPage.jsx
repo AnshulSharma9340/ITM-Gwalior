@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
+import EditableText from '../components/admin/EditableText';
 
 // ─── Shared Sub-Components ────────────────────────────────────────────────────
 function SectionHeading({ children }) {
@@ -22,6 +24,7 @@ function Card({ children, className = '' }) {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function PACPage() {
+  const pageKey = useLocation().pathname;
   const [activeTab, setActiveTab] = useState('Performing Arts Club');
   const [dynamicEvents, setDynamicEvents] = useState([]);
 
@@ -214,7 +217,7 @@ export default function PACPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-[#020617] transition-colors duration-500">
 
       {/* ── HERO BANNER ─────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] pt-8 pb-12 sm:pt-16 sm:pb-24 overflow-hidden">
+      <div data-section="pac_hero" className="relative bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] pt-8 pb-12 sm:pt-16 sm:pb-24 overflow-hidden">
         {/* Decorative background shapes */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-8 right-32 w-72 h-72 rounded-full border-2 border-white"></div>
@@ -224,14 +227,17 @@ export default function PACPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
           <span className="inline-block text-red-200 font-bold tracking-widest text-xs uppercase mb-3 px-3 py-1 bg-white/10 rounded-full border border-white/20">
-            Student Life & Activities
+            <EditableText pageKey={pageKey} tkey="pac.eyebrow" as="span" value="Student Life & Activities">Student Life & Activities</EditableText>
           </span>
           <h1 className="text-2xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 leading-tight">
-            Performing Arts <br />
-            <span className="text-white">Club</span>
+            <EditableText pageKey={pageKey} tkey="pac.title.line1" as="span" value="Performing Arts">Performing Arts</EditableText> <br />
+            <EditableText pageKey={pageKey} tkey="pac.title.line2" as="span" value="Club" className="text-white">Club</EditableText>
           </h1>
           <p className="text-red-100/80 max-w-xl text-sm leading-relaxed font-medium">
-            Discover your artistic potential, participate in vibrant cultural events, and express yourself through music, dance, and drama.
+            <EditableText pageKey={pageKey} tkey="pac.intro" as="span" multiline
+              value="Discover your artistic potential, participate in vibrant cultural events, and express yourself through music, dance, and drama.">
+              Discover your artistic potential, participate in vibrant cultural events, and express yourself through music, dance, and drama.
+            </EditableText>
           </p>
 
           {/* Quick-stat chips */}

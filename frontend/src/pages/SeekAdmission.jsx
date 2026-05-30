@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, AnimatePresence } from "framer-motion";
 import AdmissionInquiryForm from "../components/AdmissionInquiryForm";
 import {
@@ -98,6 +99,7 @@ function matchPrograms({ level, stream, percent, category }) {
 }
 
 export default function SeekAdmission() {
+  const pageKey = useLocation().pathname;
   const [activeStep, setActiveStep] = useState(1);
   const [openFaq, setOpenFaq] = useState(0);
   const [counsellorFilter, setCounsellorFilter] = useState("All");
@@ -127,7 +129,7 @@ export default function SeekAdmission() {
     <div className="min-h-screen bg-gradient-to-b from-white via-rose-50/20 to-white dark:from-[#020617] dark:to-[#020617]">
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="seek_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-20 right-32 w-64 h-64 rounded-full border-2 border-white"></div>
           <div className="absolute -bottom-20 left-1/3 w-96 h-96 rounded-full border border-white/40"></div>
@@ -145,12 +147,15 @@ export default function SeekAdmission() {
               <Sparkles size={12} /> Admissions 2026 — Now Open
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] mb-3">
-              Apply to ITM.<br />
-              <span className="text-red-200">The smart way.</span>
+              <EditableText pageKey={pageKey} tkey="seek.title.line1" as="span" value="Apply to ITM.">Apply to ITM.</EditableText><br />
+              <EditableText pageKey={pageKey} tkey="seek.title.line2" as="span" value="The smart way." className="text-red-200">The smart way.</EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-2xl leading-relaxed font-medium mb-6">
-              Check your eligibility, estimate your fees, find the right counsellor — all in one place.
-              No PDFs to download, no phone tag.
+              <EditableText pageKey={pageKey} tkey="seek.intro" as="span" multiline
+                value="Check your eligibility, estimate your fees, find the right counsellor — all in one place. No PDFs to download, no phone tag.">
+                Check your eligibility, estimate your fees, find the right counsellor — all in one place.
+                No PDFs to download, no phone tag.
+              </EditableText>
             </p>
             <div className="flex flex-wrap gap-3">
               <a

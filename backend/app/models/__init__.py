@@ -44,6 +44,7 @@ from app.models.events import (
     Notice,
     Video,
 )
+from app.models.posts import Post
 from app.models.placements import (
     MoU,
     PlacementRecord,
@@ -67,6 +68,7 @@ from app.models.research import (
     Publication,
     ResearchFocusArea,
 )
+from app.models.scope_preset import ScopePreset
 from app.models.user import AuditLog, LoginAttempt, RefreshToken, Scope, User, UserScope
 
 __all__ = [
@@ -120,6 +122,7 @@ __all__ = [
     "PlacementRecord",
     "PlacementStatistic",
     "PolicyDocument",
+    "Post",
     "Publication",
     "Quota",
     "Recruiter",
@@ -129,6 +132,7 @@ __all__ = [
     "RequiredDocument",
     "ResearchFocusArea",
     "Scope",
+    "ScopePreset",
     "Setting",
     "StudentAward",
     "StudentProject",

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "./admin/EditableText";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import {
   Home,
@@ -69,6 +70,7 @@ const SECTION_ICONS = {
 };
 
 export default function DepartmentTemplate({ dept }) {
+  const pageKey = useLocation().pathname;
   if (!dept) return null;
 
   // Build section list dynamically based on what data exists
@@ -129,7 +131,7 @@ export default function DepartmentTemplate({ dept }) {
       </div>
 
       {/* Compact Hero */}
-      <section className="relative overflow-hidden">
+      <section data-section="dept_hero" className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img src={dept.image} alt={dept.name} className="w-full h-full object-cover" loading="eager" />
           <div className={`absolute inset-0 bg-gradient-to-br from-[#800000] to-[#3e0202] mix-blend-multiply opacity-90`}></div>
@@ -147,12 +149,18 @@ export default function DepartmentTemplate({ dept }) {
                   <EmojiToIcon emoji={dept.icon} size={32} />
                 </span>
                 <div>
-                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200 mb-1">Department of</div>
-                  <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-[-0.04em] leading-[0.95]">{dept.name}</h1>
+                  <div className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-200 mb-1">
+                    <EditableText pageKey={pageKey} tkey="dept.eyebrow" as="span" value="Department of">Department of</EditableText>
+                  </div>
+                  <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-[-0.04em] leading-[0.95]">
+                    <EditableText pageKey={pageKey} tkey="dept.name" as="span" value={dept.name}>{dept.name}</EditableText>
+                  </h1>
                 </div>
               </div>
               {dept.subtitle && (
-                <p className="text-xs sm:text-sm md:text-base text-white/85 max-w-2xl leading-relaxed font-medium mb-3 sm:mb-4 line-clamp-3 sm:line-clamp-none">{dept.subtitle}</p>
+                <p className="text-xs sm:text-sm md:text-base text-white/85 max-w-2xl leading-relaxed font-medium mb-3 sm:mb-4 line-clamp-3 sm:line-clamp-none">
+                  <EditableText pageKey={pageKey} tkey="dept.subtitle" as="span" multiline value={dept.subtitle}>{dept.subtitle}</EditableText>
+                </p>
               )}
               <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-widest font-black">
                 <span className="px-3 py-1 bg-white/10 backdrop-blur border border-white/20 rounded-full">Est. {dept.established}</span>
@@ -183,7 +191,7 @@ export default function DepartmentTemplate({ dept }) {
       </section>
 
       {/* ─── Main Layout: Sidebar + Content ─── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 md:py-12">
+      <section data-section="dept_main" className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 md:py-12">
 
         {/* Mobile section bar — horizontal scroll */}
         <div className="lg:hidden mb-4 sm:mb-6 overflow-x-auto -mx-4 px-4 pb-2" style={{ scrollbarWidth: "none" }}>
@@ -318,7 +326,9 @@ export default function DepartmentTemplate({ dept }) {
                   {/* ── ABOUT ── */}
                   {active === "about" && (
                     <div className="space-y-4 sm:space-y-6">
-                      <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-medium">{dept.intro}</p>
+                      <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+                        <EditableText pageKey={pageKey} tkey="dept.intro" as="span" multiline value={dept.intro}>{dept.intro}</EditableText>
+                      </p>
 
                       {/* Feature cards */}
                       {dept.features && (

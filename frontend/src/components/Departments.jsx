@@ -74,7 +74,7 @@ const EMERGING = [
 
 export default function Departments() {
   return (
-    <section id="departments" className="relative py-8 sm:py-20 md:py-28 bg-[#fbf7f2] dark:bg-[#020617] overflow-hidden">
+    <section id="departments" data-section="departments" className="relative py-8 sm:py-20 md:py-28 bg-[#fbf7f2] dark:bg-[#020617] overflow-hidden">
 
       {/* Decorative blurs */}
       <div className="absolute top-20 right-0 w-[40vw] h-[40vw] rounded-full bg-gradient-to-bl from-rose-200/40 to-transparent blur-3xl pointer-events-none"></div>

@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
+import EditableText from "./admin/EditableText";
 
 const campusHighlights = [
   { 
@@ -35,8 +37,9 @@ const campusHighlights = [
 ];
 
 export default function CampusLife() {
+  const pageKey = useLocation().pathname;
   return (
-    <section className="py-10 sm:py-24 bg-white dark:bg-[#020617] transition-colors duration-500">
+    <section data-section="campus_life" className="py-10 sm:py-24 bg-white dark:bg-[#020617] transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header Section */}
@@ -46,7 +49,7 @@ export default function CampusLife() {
             whileInView={{ opacity: 1 }}
             className="text-[#800000] dark:text-red-400 font-black uppercase tracking-[0.4em] text-[10px]"
           >
-            Lifestyle
+            <EditableText pageKey={pageKey} tkey="campuslife.eyebrow" as="span" value="Lifestyle">Lifestyle</EditableText>
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -54,8 +57,9 @@ export default function CampusLife() {
             transition={{ delay: 0.2 }}
             className="text-3xl sm:text-4xl md:text-6xl font-black text-[#3e0202] dark:text-white mt-3 sm:mt-4 tracking-tighter"
           >
-            Experience Life at <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#800000] to-red-600">ITM Gwalior.</span>
+            <EditableText pageKey={pageKey} tkey="campuslife.title.line1" as="span" value="Experience Life at">Experience Life at</EditableText> <br />
+            <EditableText pageKey={pageKey} tkey="campuslife.title.line2" as="span" value="ITM Gwalior."
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#800000] to-red-600">ITM Gwalior.</EditableText>
           </motion.h2>
         </div>
 

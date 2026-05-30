@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion } from "framer-motion";
 import {
   Home,
@@ -67,6 +68,7 @@ const VOLUMES = [
 ];
 
 export default function ResearchJournal() {
+  const pageKey = useLocation().pathname;
   return (
     <div className="min-h-screen bg-[#fbf7f2] dark:bg-[#020617]">
 
@@ -98,7 +100,7 @@ export default function ResearchJournal() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="journal_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
         </div>
@@ -108,11 +110,15 @@ export default function ResearchJournal() {
               <BookOpen size={12} /> Peer-Reviewed Publication
             </span>
             <h1 className="text-2xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] mb-4">
-              ITM International<br /><span className="text-red-200">Journal.</span>
+              <EditableText pageKey={pageKey} tkey="journal.title.line1" as="span" value="ITM International">ITM International</EditableText><br />
+              <EditableText pageKey={pageKey} tkey="journal.title.line2" as="span" value="Journal." className="text-red-200">Journal.</EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium mb-6">
-              IIJISEM — our peer-reviewed open-access publication featuring innovative research in
-              Science, Engineering &amp; Management.
+              <EditableText pageKey={pageKey} tkey="journal.intro" as="span" multiline
+                value="IIJISEM — our peer-reviewed open-access publication featuring innovative research in Science, Engineering & Management.">
+                IIJISEM — our peer-reviewed open-access publication featuring innovative research in
+                Science, Engineering &amp; Management.
+              </EditableText>
             </p>
             <a href="https://iijisem.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-white text-[#800000] px-4 py-2.5 sm:px-6 sm:py-3 rounded-full font-black text-[11px] tracking-widest uppercase hover:scale-[1.02] transition-transform shadow-xl">
               Visit iijisem.com <ExternalLink size={14} />

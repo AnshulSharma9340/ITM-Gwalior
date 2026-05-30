@@ -44,6 +44,12 @@ uvicorn app.main:app --reload --port 8000
 alembic revision --autogenerate -m "add foo table"
 alembic upgrade head
 
+# seed system scope presets (Phase 1)
+python -m scripts.seed_scope_presets
+
+# seed pages + sections from the React route catalogue (Phase 3)
+python -m scripts.seed_pages_from_frontend
+
 # run tests
 pytest
 
@@ -51,6 +57,20 @@ pytest
 ruff check .
 ruff format .
 ```
+
+## Admin/Editor v2 (Phases 1-6)
+
+See **`ADMIN_EDITOR_BACKEND_PLAN.md`** for the full design.
+
+| Endpoint group | Prefix | Scope |
+|---|---|---|
+| Scope presets | `/api/scope-presets` | super_admin (mutate), any (read) |
+| Visual editor | `/api/admin/pages/{key}/*` | `site.pages` or page's `scope_key` |
+| Blog posts (admin) | `/api/admin/posts/*` | `blog.posts` |
+| Blog posts (public) | `/api/public/posts/*` | none |
+| Analytics | `/api/admin/analytics/*` | `analytics.view` |
+
+After `alembic upgrade head`, run both seed scripts to populate presets + page catalogue.
 
 ## Layout
 

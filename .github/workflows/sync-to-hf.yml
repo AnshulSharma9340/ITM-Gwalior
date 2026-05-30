@@ -1,0 +1,119 @@
+# Auto-sync backend/ to the Hugging Face Space on every push to main.
+#
+# Setup (one-time, by repo owner):
+#   1. Generate a write-scoped HF user-access token at
+#      https://huggingface.co/settings/tokens
+#      → "New token" → role: Write → name: github-actions-hf-sync
+#   2. Add it to this repo: Settings → Secrets and variables → Actions
+#      → New repository secret
+#        Name:  HF_TOKEN
+#        Value: hf_XXXXXXXX...
+#
+# How it works:
+#   - On every push to main that touches backend/ or deploy/huggingface/:
+#   - We assemble a "Space tree" by copying backend/ to a temp dir, then
+#     overlaying deploy/huggingface/{Dockerfile,README.md,space-secrets.example}
+#     so the HF Space gets a proper Docker SDK config at its root.
+#   - We init a fresh git repo there and force-push to the Space's main branch.
+#     HF auto-rebuilds the Docker image and redeploys (~2-3 minutes).
+#
+# Adjust HF_SPACE_OWNER / HF_SPACE_NAME below if your Space lives elsewhere.
+
+name: Sync backend to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - 'deploy/huggingface/**'
+      - '.github/workflows/sync-to-hf.yml'
+  workflow_dispatch: {}
+
+env:
+  HF_SPACE_OWNER: anshul32467
+  HF_SPACE_NAME: ITMGWALIOR
+
+concurrency:
+  group: sync-to-hf
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Verify HF_TOKEN is configured
+        run: |
+          if [ -z "${{ secrets.HF_TOKEN }}" ]; then
+            echo "::error::HF_TOKEN secret is not set. Add a Hugging Face write token at Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "HF_TOKEN is set ($(echo -n '${{ secrets.HF_TOKEN }}' | wc -c) chars)."
+
+      - name: Assemble Space tree
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/space
+          # 1. Copy backend/ contents to /tmp/space root
+          mkdir -p /tmp/space
+          rsync -a \
+            --exclude='.venv/' \
+            --exclude='__pycache__/' \
+            --exclude='.pytest_cache/' \
+            --exclude='.mypy_cache/' \
+            --exclude='.ruff_cache/' \
+            --exclude='htmlcov/' \
+            --exclude='.coverage' \
+            --exclude='logs/' \
+            --exclude='uploads/' \
+            --exclude='*.db' \
+            --exclude='*.sqlite' \
+            --exclude='*.sqlite3' \
+            --exclude='*.pyc' \
+            --exclude='.env' \
+            --exclude='dist/' \
+            --exclude='build/' \
+            backend/ /tmp/space/
+
+          # 2. Overlay HF-specific files (Dockerfile + Space metadata README)
+          if [ -d deploy/huggingface ]; then
+            cp deploy/huggingface/Dockerfile /tmp/space/Dockerfile
+            cp deploy/huggingface/README.md /tmp/space/README.md
+            if [ -f deploy/huggingface/space-secrets.example ]; then
+              cp deploy/huggingface/space-secrets.example /tmp/space/space-secrets.example
+            fi
+          fi
+
+          echo "Space tree contents:"
+          ls -la /tmp/space | head -25
+          echo "---"
+          du -sh /tmp/space
+
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd /tmp/space
+          git init -q -b main
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Stash large files via Git LFS would be needed for >10 MB binaries —
+          # the backend is text/code only, so plain git is fine.
+          git add -A
+          git commit -q -m "Sync from github.com/${{ github.repository }}@${{ github.sha }}"
+
+          # Push to HF using the bot token. The :USER part can be any non-empty
+          # string — HF only validates the token.
+          REMOTE="https://hf:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_OWNER}/${HF_SPACE_NAME}"
+          git remote add hf "$REMOTE"
+
+          # Force-push because we assemble a fresh history each run.
+          git push --force hf main:main
+
+          echo "::notice::Pushed to https://huggingface.co/spaces/${HF_SPACE_OWNER}/${HF_SPACE_NAME}"
+          echo "::notice::Space will rebuild in 2-3 minutes."

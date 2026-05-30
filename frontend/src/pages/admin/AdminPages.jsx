@@ -1,234 +1,205 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, FileText, Pencil, Save, X } from 'lucide-react';
-import { pagesApi } from '../../api/cms';
-import { errorMessage } from '../../api/client';
+import { useMemo, useRef, useState } from 'react';
+import {
+  FileText, Search, Monitor, Tablet, Smartphone, ExternalLink,
+  RotateCcw, RefreshCw, Pencil, ChevronRight, Info,
+} from 'lucide-react';
+import AdminLayout from '../../components/admin/AdminLayout';
+import { useEditMode } from '../../context/EditModeContext';
+import { SITE_PAGES, pageLabelForPath } from '../../data/sitePages';
 
-function SectionEditor({ page, section, onSaved, onClose }) {
-  const [draft, setDraft] = useState(JSON.stringify(section.payload ?? {}, null, 2));
-  const [saving, setSaving] = useState(false);
-  const [err, setErr] = useState('');
+const DEVICES = {
+  desktop: { label: 'Desktop', icon: Monitor, width: '100%', max: 'none' },
+  tablet: { label: 'Tablet', icon: Tablet, width: '820px', max: '820px' },
+  mobile: { label: 'Mobile', icon: Smartphone, width: '390px', max: '390px' },
+};
 
-  const save = async () => {
-    setErr(''); setSaving(true);
-    try {
-      const payload = JSON.parse(draft);
-      const updated = await pagesApi.updateSection(page.id, section.section_key, { payload });
-      onSaved(updated);
-      onClose();
-    } catch (e) {
-      setErr(e.message ?? errorMessage(e));
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative ml-auto w-full max-w-3xl bg-white dark:bg-gray-900 h-full overflow-y-auto p-6 shadow-2xl">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-lg font-black text-gray-900 dark:text-white">
-              Edit section: <span className="font-mono text-sm">{section.section_key}</span>
-            </h2>
-            <p className="text-xs text-gray-500 mt-0.5">Page: <span className="font-mono">{page.path}</span> · kind: {section.kind}</p>
-          </div>
-          <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-            <X size={18} />
-          </button>
-        </div>
-
-        <textarea
-          rows={Math.min(36, draft.split('\n').length + 2)}
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          className="w-full px-3 py-2 text-xs font-mono border border-gray-200 dark:border-gray-700 rounded-lg dark:bg-gray-800 focus:outline-none focus:border-[#800000]"
-        />
-
-        {err && <div className="mt-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{err}</div>}
-
-        <div className="mt-4 flex gap-2">
-          <button onClick={save} disabled={saving} className="bg-[#800000] text-white text-xs font-black uppercase tracking-widest px-4 py-2 rounded-lg flex items-center gap-1.5 disabled:opacity-60">
-            <Save size={14} /> {saving ? 'Saving…' : 'Save section'}
-          </button>
-          <button onClick={onClose} className="text-xs px-4 py-2 rounded-lg">Cancel</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PageMetaEditor({ page, onSaved }) {
-  const [form, setForm] = useState({
-    title: page.title ?? '',
-    meta_title: page.meta_title ?? '',
-    meta_description: page.meta_description ?? '',
-    meta_keywords: (page.meta_keywords || []).join(', '),
-    canonical_url: page.canonical_url ?? '',
-    robots: page.robots ?? 'index,follow',
-    is_published: page.is_published,
-  });
-  const [saving, setSaving] = useState(false);
-  const [err, setErr] = useState('');
-  const [ok, setOk] = useState(false);
-
-  const save = async (e) => {
-    e.preventDefault();
-    setErr(''); setOk(false); setSaving(true);
-    try {
-      const updated = await pagesApi.update(page.id, {
-        ...form,
-        meta_keywords: form.meta_keywords.split(',').map((s) => s.trim()).filter(Boolean),
-      });
-      onSaved(updated);
-      setOk(true);
-      setTimeout(() => setOk(false), 1500);
-    } catch (e2) {
-      setErr(errorMessage(e2));
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  return (
-    <form onSubmit={save} className="bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-800 rounded-xl p-4 grid sm:grid-cols-2 gap-3">
-      <label className="text-xs">
-        <span className="block font-bold text-gray-500 mb-1">Title</span>
-        <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="w-full px-2 py-1.5 border rounded dark:bg-gray-900 dark:border-gray-700" />
-      </label>
-      <label className="text-xs">
-        <span className="block font-bold text-gray-500 mb-1">Meta title (≤70)</span>
-        <input maxLength={70} value={form.meta_title} onChange={(e) => setForm({ ...form, meta_title: e.target.value })} className="w-full px-2 py-1.5 border rounded dark:bg-gray-900 dark:border-gray-700" />
-      </label>
-      <label className="text-xs sm:col-span-2">
-        <span className="block font-bold text-gray-500 mb-1">Meta description (≤255)</span>
-        <textarea maxLength={255} rows={2} value={form.meta_description} onChange={(e) => setForm({ ...form, meta_description: e.target.value })} className="w-full px-2 py-1.5 border rounded dark:bg-gray-900 dark:border-gray-700" />
-      </label>
-      <label className="text-xs">
-        <span className="block font-bold text-gray-500 mb-1">Keywords (comma-separated)</span>
-        <input value={form.meta_keywords} onChange={(e) => setForm({ ...form, meta_keywords: e.target.value })} className="w-full px-2 py-1.5 border rounded dark:bg-gray-900 dark:border-gray-700" />
-      </label>
-      <label className="text-xs">
-        <span className="block font-bold text-gray-500 mb-1">Canonical URL</span>
-        <input value={form.canonical_url} onChange={(e) => setForm({ ...form, canonical_url: e.target.value })} className="w-full px-2 py-1.5 border rounded dark:bg-gray-900 dark:border-gray-700" />
-      </label>
-      <label className="text-xs">
-        <span className="block font-bold text-gray-500 mb-1">Robots</span>
-        <input value={form.robots} onChange={(e) => setForm({ ...form, robots: e.target.value })} className="w-full px-2 py-1.5 border rounded dark:bg-gray-900 dark:border-gray-700" />
-      </label>
-      <label className="text-xs flex items-center gap-2">
-        <input type="checkbox" checked={form.is_published} onChange={(e) => setForm({ ...form, is_published: e.target.checked })} />
-        Published
-      </label>
-      <div className="sm:col-span-2 flex items-center gap-2">
-        <button disabled={saving} className="bg-[#800000] text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-lg flex items-center gap-1.5">
-          <Save size={12} /> Save meta
-        </button>
-        {ok && <span className="text-xs text-emerald-600 font-semibold">Saved.</span>}
-        {err && <span className="text-xs text-red-600 font-semibold">{err}</span>}
-      </div>
-    </form>
-  );
-}
-
+/*
+ * Pages & SEO — edit every public page from inside the dashboard.
+ *
+ * The left rail lists all pages; selecting one loads it in an embedded preview
+ * (an iframe of the live route). The app detects it's framed and turns on edit
+ * mode automatically, so text becomes click-to-edit, images get a Replace
+ * button, and layout blocks can be reordered/hidden — without leaving this page.
+ * All edits save locally and reflect on the live site immediately.
+ */
 export default function AdminPages() {
-  const qc = useQueryClient();
-  const { data: pages = [], isLoading, error } = useQuery({
-    queryKey: ['admin-pages'],
-    queryFn: () => pagesApi.list(),
-  });
-  const [editing, setEditing] = useState(null); // {page, section}
+  const { resetPage, hasOverrides } = useEditMode();
+  const [selected, setSelected] = useState('/');
+  const [query, setQuery] = useState('');
+  const [device, setDevice] = useState('desktop');
+  const [nonce, setNonce] = useState(0); // bump to force-reload the iframe
+  const iframeRef = useRef(null);
 
-  const replacePage = (updated) =>
-    qc.setQueryData(['admin-pages'], (arr = []) =>
-      arr.map((x) => (x.id === updated.id ? updated : x))
-    );
+  const q = query.trim().toLowerCase();
+  const groups = useMemo(
+    () =>
+      SITE_PAGES.map((g) => ({
+        ...g,
+        pages: g.pages.filter(
+          (p) => !q || p.label.toLowerCase().includes(q) || p.path.toLowerCase().includes(q)
+        ),
+      })).filter((g) => g.pages.length > 0),
+    [q]
+  );
+
+  const dev = DEVICES[device];
+
+  const reload = () => setNonce((n) => n + 1);
+  const handleReset = () => {
+    if (window.confirm(`Reset all local edits on "${pageLabelForPath(selected)}"?`)) {
+      resetPage(selected);
+      reload();
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#020617] p-6">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center gap-3 mb-6">
-          <Link to="/admin" className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-            <ArrowLeft size={18} />
-          </Link>
-          <div>
-            <h1 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
-              <FileText size={20} /> Pages
-            </h1>
-            <p className="text-xs text-gray-500 mt-0.5">Edit page metadata + content sections. Sections render as live JSON for now; richer editors arrive in later phases.</p>
-          </div>
-        </div>
-
-        {error && <div className="mb-4 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">{errorMessage(error)}</div>}
-
-        {isLoading && <div className="text-center text-gray-400 py-10">Loading…</div>}
-
-        <div className="space-y-6">
-          {pages.map((p) => (
-            <div key={p.id} className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
-              <div className="flex items-baseline justify-between gap-3 mb-3">
-                <div>
-                  <h2 className="text-lg font-black text-gray-900 dark:text-white">{p.title}</h2>
-                  <div className="text-xs text-gray-500 font-mono">{p.path} · key=<span className="font-semibold">{p.key}</span></div>
-                </div>
-                <span className={`text-[10px] font-black uppercase px-2 py-1 rounded ${p.is_published ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-200 text-gray-600'}`}>
-                  {p.is_published ? 'Published' : 'Draft'}
-                </span>
-              </div>
-
-              <PageMetaEditor page={p} onSaved={replacePage} />
-
-              <h3 className="mt-5 mb-2 text-[11px] font-black uppercase tracking-widest text-gray-400">Sections</h3>
-              <div className="grid gap-2">
-                {p.sections.length === 0 && <div className="text-xs text-gray-400">No sections yet.</div>}
-                {p.sections.map((s) => (
-                  <div key={s.id} className="flex items-center justify-between bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800 rounded-lg px-3 py-2.5">
-                    <div className="min-w-0">
-                      <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                        {s.label || s.section_key}
-                      </div>
-                      <div className="text-[11px] text-gray-400 font-mono">
-                        {s.section_key} · {s.kind} · pos {s.position}
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setEditing({ page: p, section: s })}
-                      className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-1.5"
-                    >
-                      <Pencil size={12} /> Edit
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-          {!isLoading && pages.length === 0 && <div className="text-center text-gray-400 py-10">No pages yet. Seed creates the Home page automatically.</div>}
-        </div>
+    <AdminLayout>
+      <div className="mb-5">
+        <h1 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
+          <FileText size={20} /> Pages &amp; SEO
+        </h1>
+        <p className="text-xs text-gray-500 mt-0.5">
+          Pick a page and edit its text, images and layout right here — changes save automatically.
+        </p>
       </div>
 
-      {editing && (
-        <SectionEditor
-          page={editing.page}
-          section={editing.section}
-          onClose={() => setEditing(null)}
-          onSaved={(updatedSection) => {
-            qc.setQueryData(['admin-pages'], (arr = []) =>
-              arr.map((pp) =>
-                pp.id === editing.page.id
-                  ? {
-                      ...pp,
-                      sections: pp.sections.map((s) =>
-                        s.section_key === updatedSection.section_key ? { ...s, ...updatedSection } : s
-                      ),
-                    }
-                  : pp
-              )
-            );
-          }}
-        />
-      )}
-    </div>
+      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-5">
+        {/* ── Page list ── */}
+        <aside className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col max-h-[78vh]">
+          <div className="flex items-center gap-2 px-3 py-2.5 border-b border-gray-100 dark:border-gray-800">
+            <Search size={14} className="text-gray-400 shrink-0" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Find a page…"
+              className="flex-1 bg-transparent text-sm outline-none text-gray-800 dark:text-white placeholder:text-gray-400"
+            />
+          </div>
+          <div className="overflow-y-auto py-1">
+            {groups.length === 0 && (
+              <div className="px-4 py-6 text-center text-xs text-gray-400">No pages match.</div>
+            )}
+            {groups.map((g) => (
+              <div key={g.group} className="py-1">
+                <div className="px-3 py-1 text-[10px] font-black uppercase tracking-widest text-gray-400">
+                  {g.group}
+                </div>
+                {g.pages.map((p) => {
+                  const active = p.path === selected;
+                  const edited = hasOverrides(p.path);
+                  return (
+                    <button
+                      key={p.path}
+                      type="button"
+                      onClick={() => setSelected(p.path)}
+                      className={`w-full text-left px-3 py-2 flex items-center gap-2 transition-colors ${
+                        active
+                          ? 'bg-[#800000]/10 text-[#800000] dark:text-rose-300 font-bold'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="flex-1 min-w-0">
+                        <span className="block text-[13px] truncate">{p.label}</span>
+                        <span className="block text-[10px] text-gray-400 font-mono truncate">{p.path}</span>
+                      </span>
+                      {edited && (
+                        <span
+                          title="Has unsaved local edits"
+                          className="shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500"
+                        />
+                      )}
+                      {active && <ChevronRight size={14} className="shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </aside>
+
+        {/* ── Preview editor ── */}
+        <section className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col min-h-[78vh]">
+          {/* Toolbar */}
+          <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 border-b border-gray-100 dark:border-gray-800">
+            <span className="flex items-center gap-2 mr-auto min-w-0">
+              <Pencil size={14} className="text-[#800000] shrink-0" />
+              <span className="font-black text-sm text-gray-900 dark:text-white truncate">
+                {pageLabelForPath(selected)}
+              </span>
+              <span className="text-[11px] text-gray-400 font-mono truncate hidden sm:inline">{selected}</span>
+            </span>
+
+            {/* Device width toggle */}
+            <div className="flex items-center gap-0.5 bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5">
+              {Object.entries(DEVICES).map(([key, d]) => {
+                const Icon = d.icon;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setDevice(key)}
+                    title={d.label}
+                    className={`p-1.5 rounded-md transition-colors ${
+                      device === key
+                        ? 'bg-white dark:bg-gray-700 text-[#800000] shadow-sm'
+                        : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                  >
+                    <Icon size={15} />
+                  </button>
+                );
+              })}
+            </div>
+
+            {hasOverrides(selected) && (
+              <button
+                type="button"
+                onClick={handleReset}
+                title="Reset this page's edits"
+                className="p-1.5 rounded-md text-gray-400 hover:text-[#800000] transition-colors"
+              >
+                <RotateCcw size={15} />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={reload}
+              title="Reload preview"
+              className="p-1.5 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
+            >
+              <RefreshCw size={15} />
+            </button>
+            <a
+              href={selected}
+              target="_blank"
+              rel="noreferrer"
+              title="Open live page in new tab"
+              className="p-1.5 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
+            >
+              <ExternalLink size={15} />
+            </a>
+          </div>
+
+          {/* Hint */}
+          <div className="flex items-center gap-2 px-3 py-2 bg-sky-50 dark:bg-sky-500/10 text-sky-800 dark:text-sky-300 text-[11px] font-medium border-b border-sky-100 dark:border-sky-500/20">
+            <Info size={13} className="shrink-0" />
+            Click any text to edit it, use the violet “Replace” button on images, and the maroon
+            controls to reorder or hide sections. Edits save automatically.
+          </div>
+
+          {/* Preview frame */}
+          <div className="flex-1 overflow-auto bg-gray-100 dark:bg-[#020617] p-3 flex justify-center">
+            <iframe
+              key={`${selected}-${nonce}`}
+              ref={iframeRef}
+              src={selected}
+              title={`Preview — ${pageLabelForPath(selected)}`}
+              className="bg-white rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all"
+              style={{ width: dev.width, maxWidth: dev.max, height: '100%', minHeight: '70vh' }}
+            />
+          </div>
+        </section>
+      </div>
+    </AdminLayout>
   );
 }

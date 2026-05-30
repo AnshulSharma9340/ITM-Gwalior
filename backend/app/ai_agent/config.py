@@ -22,7 +22,7 @@ class AISettings(BaseSettings):
     API_PREFIX: str = "/api/ai"
 
     # CORS
-    FRONTEND_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
+    FRONTEND_ORIGINS: str = "http://localhost:5173,http://localhost:3000,https://itm-gwalior.vercel.app,https://anshul32467-itmgwalior.hf.space"
 
     # NVIDIA AI Endpoints
     NVIDIA_API_KEY: str = ""
@@ -50,9 +50,9 @@ class AISettings(BaseSettings):
     )
     MAX_SCRAPE_PAGES: int = 100
 
-    # Websites
+    # Websites — ONLY use the new vercel site. Old itmgoi.in has stale data.
     PRIMARY_WEBSITE: str = "https://itm-gwalior.vercel.app"
-    LEGACY_WEBSITE: str = "https://www.itmgoi.in"
+    LEGACY_WEBSITE: str = ""  # Disabled — old data, do not crawl
     UNIVERSITY_WEBSITE: str = "https://www.itmuniversity.ac.in"
     LMS_URL: str = "https://lms.itmgoi.in"
     ERP_URL: str = "https://mis.itmuniversity.ac.in/itmzone"

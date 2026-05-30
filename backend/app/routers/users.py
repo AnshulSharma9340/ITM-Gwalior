@@ -10,7 +10,8 @@ from app.core.errors import AppError, ConflictError, NotFoundError
 from app.core.rbac import SCOPES, is_known_scope
 from app.core.security import hash_password
 from app.deps import get_current_user, require, super_admin
-from app.models import Scope, User, UserScope
+from app.models import Scope, ScopePreset, User, UserScope
+from app.schemas.scope_preset import ApplyPresetRequest
 from app.schemas.user import (
     PasswordResetRequest,
     ScopeAssignment,
@@ -267,6 +268,53 @@ def update_user_scopes(
         entity_id=user.id,
         before={"scopes": before_keys},
         after={"scopes": after_keys},
+        ip=request.client.host if request.client else None,
+    )
+    return _user_to_out(user)
+
+
+@router.post("/{user_id}/scopes/apply-preset", response_model=UserOut, dependencies=[Depends(require("users.manage"))])
+def apply_scope_preset(
+    user_id: int,
+    body: ApplyPresetRequest,
+    request: Request,
+    db: Session = Depends(get_db),
+    actor: User = Depends(get_current_user),
+):
+    user = db.get(User, user_id)
+    if not user:
+        raise NotFoundError("User not found")
+    preset = db.scalar(select(ScopePreset).where(ScopePreset.key == body.preset_key))
+    if not preset:
+        raise NotFoundError(f"Preset '{body.preset_key}' not found")
+
+    before_keys = sorted(s.key for s in user.scopes)
+
+    if body.mode == "replace":
+        db.query(UserScope).filter(UserScope.user_id == user.id).delete(synchronize_session=False)
+        db.flush()
+        existing_ids: set[int] = set()
+    else:
+        existing_ids = {s.id for s in user.scopes}
+
+    target_keys = [k for k in preset.scope_keys if is_known_scope(k)]
+    if target_keys:
+        rows = db.scalars(select(Scope).where(Scope.key.in_(target_keys))).all()
+        for s in rows:
+            if s.id not in existing_ids:
+                db.add(UserScope(user_id=user.id, scope_id=s.id, granted_by_user_id=actor.id))
+
+    db.commit()
+    db.refresh(user)
+    after_keys = sorted(s.key for s in user.scopes)
+    audit.record(
+        db,
+        user_id=actor.id,
+        action="user.scopes_apply_preset",
+        entity_type="user",
+        entity_id=user.id,
+        before={"scopes": before_keys},
+        after={"scopes": after_keys, "preset": preset.key, "mode": body.mode},
         ip=request.client.host if request.client else None,
     )
     return _user_to_out(user)

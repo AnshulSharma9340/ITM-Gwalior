@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion } from "framer-motion";
 import {
   Home,
@@ -69,6 +70,7 @@ const FDP_DOC_URL = "https://www.itmgoi.in/IQAC/Conf_FDP/National_FDP_ITM.pdf";
 const FDP_BANNER = "https://www.itmgoi.in/IQAC/Conf_FDP/Fdp.jpg";
 
 export default function ResearchFDP() {
+  const pageKey = useLocation().pathname;
   return (
     <div className="min-h-screen bg-[#fbf7f2] dark:bg-[#020617]">
 
@@ -100,7 +102,7 @@ export default function ResearchFDP() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="fdp_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
         </div>
@@ -109,7 +111,7 @@ export default function ResearchFDP() {
             <Sparkles size={12} /> {FDP.type} · {FDP.mode}
           </span>
           <h1 className="text-xl sm:text-4xl md:text-6xl font-black tracking-[-0.04em] leading-[1] mb-4 max-w-4xl">
-            {FDP.title}
+            <EditableText pageKey={pageKey} tkey="fdp.title" as="span" value={FDP.title}>{FDP.title}</EditableText>
           </h1>
           <div className="flex flex-wrap gap-2 mb-7">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur border border-white/20 rounded-full text-xs font-black">

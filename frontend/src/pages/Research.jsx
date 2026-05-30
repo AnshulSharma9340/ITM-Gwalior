@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import EditableText from "../components/admin/EditableText";
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import {
   Home,
@@ -82,6 +83,7 @@ function BigNumber({ value, suffix = "" }) {
 }
 
 export default function Research() {
+  const pageKey = useLocation().pathname;
   return (
     <div className="min-h-screen bg-[#fbf7f2] dark:bg-[#020617]">
 
@@ -95,7 +97,7 @@ export default function Research() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
+      <section data-section="research_hero" className="relative overflow-hidden bg-gradient-to-br from-[#3e0202] via-[#800000] to-[#5a0000] text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute -top-10 right-20 w-72 h-72 rounded-full border-2 border-white"></div>
           <div className="absolute -bottom-20 -left-10 w-96 h-96 rounded-full border border-white/40"></div>
@@ -103,15 +105,18 @@ export default function Research() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 grid lg:grid-cols-12 gap-6 sm:gap-10 items-end">
           <div className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 text-red-200 font-bold tracking-widest text-[10px] uppercase mb-4 px-3 py-1.5 bg-white/10 backdrop-blur rounded-full border border-white/20">
-              <Sparkles size={12} /> Research at ITM Gwalior
+              <Sparkles size={12} /> <EditableText pageKey={pageKey} tkey="research.eyebrow" as="span" value="Research at ITM Gwalior">Research at ITM Gwalior</EditableText>
             </span>
             <h1 className="text-2xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[0.95] mb-4">
-              Five gateways<br />
-              <span className="text-red-200">into our research.</span>
+              <EditableText pageKey={pageKey} tkey="research.title.line1" as="span" value="Five gateways">Five gateways</EditableText><br />
+              <EditableText pageKey={pageKey} tkey="research.title.line2" as="span" value="into our research." className="text-red-200">into our research.</EditableText>
             </h1>
             <p className="text-red-100/80 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
-              R&amp;D Cell · Innovation Ecosystem · International Journal · International Conference · Faculty Development.
-              Pick any pillar below to dive deep.
+              <EditableText pageKey={pageKey} tkey="research.intro" as="span" multiline
+                value="R&D Cell · Innovation Ecosystem · International Journal · International Conference · Faculty Development. Pick any pillar below to dive deep.">
+                R&amp;D Cell · Innovation Ecosystem · International Journal · International Conference · Faculty Development.
+                Pick any pillar below to dive deep.
+              </EditableText>
             </p>
           </div>
           <div className="lg:col-span-5 grid grid-cols-2 gap-2 sm:gap-3">

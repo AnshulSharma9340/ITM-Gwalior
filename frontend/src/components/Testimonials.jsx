@@ -59,7 +59,7 @@ export default function Testimonials() {
   const t = TESTIMONIALS[idx];
 
   return (
-    <section className="relative py-6 sm:py-20 md:py-28 bg-gradient-to-br from-[#fbf7f2] via-rose-50/30 to-white dark:from-[#020617] dark:to-[#020617] overflow-hidden">
+    <section data-section="testimonials" className="relative py-6 sm:py-20 md:py-28 bg-gradient-to-br from-[#fbf7f2] via-rose-50/30 to-white dark:from-[#020617] dark:to-[#020617] overflow-hidden">
 
       <div className="absolute top-0 right-0 w-[25vw] h-[25vw] rounded-full bg-gradient-to-bl from-rose-200/40 to-transparent blur-2xl pointer-events-none"></div>
 

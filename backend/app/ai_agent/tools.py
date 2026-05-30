@@ -18,18 +18,19 @@ def _search(query: str, filter_meta: dict[str, str] | None = None, k: int = 8) -
         category = filter_meta.get("category", "general") if filter_meta else "general"
         return f"No indexed content found for '{query}' in category '{category}'. The information may not be available in the knowledge base."
 
-    # Filter out low-relevance results (score < 0.3)
-    relevant = [r for r in results if r.get("score", 0) >= 0.3]
+    # Filter out very-low-relevance results (score < 0.05)
+    # With small collections, scores are naturally lower — keep most results
+    relevant = [r for r in results if r.get("score", 0) >= 0.05]
     if not relevant:
-        category = filter_meta.get("category", "general") if filter_meta else "general"
-        return f"Search results for '{query}' in category '{category}' were not relevant enough. The information may not be available in the knowledge base."
+        # Fall back to top results even if scores are low
+        relevant = results[:3]
 
     formatted = []
     for r in relevant:
         content = r["content"].strip()
         source = r["metadata"].get("source", "Unknown")
         score = r.get("score", 0)
-        formatted.append(f"[Source: {source} | Relevance: {score:.2f}]\n{content[:600]}")
+        formatted.append(f"[Source: {source} | Relevance: {score:.2f}]\n{content[:800]}")
 
     return "\n\n---\n\n".join(formatted)
 
